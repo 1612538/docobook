@@ -1,0 +1,28 @@
+.background {
+  height: 20rem;
+  width: 100%;
+  background: linear-gradient(180deg, #ffe3fe 0%, #b4aee8 100%);
+  display: flex;
+  font-size: 16px;
+  padding: 1.5rem 7rem;
+  justify-content: left;
+  align-items: flex-start;
+}
+
+.navItem {
+  padding: 0.9rem 1.5rem;
+  font-size: 16px;
+  font-family: "Varela Round", sans-serif;
+  text-transform: uppercase;
+  font-weight: 50;
+  height: 2.8rem;
+  border-radius: 1.4rem;
+  background-color: #93329e;
+  margin: 0 1rem;
+  color: white;
+}
+.navItem:hover,
+.navItemActive {
+  background-color: #440a67;
+  color: #ffe3fe;
+}
