@@ -1,28 +1,78 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Varela+Round&display=swap");
 .background {
-  height: 20rem;
+  position: relative;
+  height: 22rem;
   width: 100%;
   background: linear-gradient(180deg, #ffe3fe 0%, #b4aee8 100%);
-  display: flex;
   font-size: 16px;
-  padding: 1.5rem 7rem;
-  justify-content: left;
-  align-items: flex-start;
+  padding: 1.5rem 0;
+  z-index: 1;
+  overflow: hidden;
 }
 
 .navItem {
-  padding: 0.9rem 1.5rem;
+  padding: 0.8rem 1.5rem;
   font-size: 16px;
   font-family: "Varela Round", sans-serif;
   text-transform: uppercase;
   font-weight: 50;
-  height: 2.8rem;
-  border-radius: 1.4rem;
+  border-radius: 5rem;
   background-color: #93329e;
-  margin: 0 1rem;
+  margin: 0.5rem 1rem;
   color: white;
+  text-decoration: none;
+  border: 0;
 }
 .navItem:hover,
+.navItem:active,
+.navItem:focus,
 .navItemActive {
   background-color: #440a67;
   color: #ffe3fe;
+}
+
+.myImage {
+  position: absolute;
+  height: 30rem;
+  width: 100%;
+  top: 0px;
+  z-index: 1;
+  object-fit: cover;
+}
+
+.SearchBarContainer {
+  background-color: #8d3e85;
+  padding: 0.6rem 2rem;
+}
+
+.searchBar {
+  border-radius: 5rem;
+  padding: 0.6rem 1rem;
+  background-color: white;
+}
+
+.search {
+  font-size: 15px;
+  padding: 0 0 2px 0;
+  margin: 0 0 0 5px;
+  width: 100%;
+  border: 0;
+  display: inline-block;
+}
+.search:focus {
+  outline: none;
+}
+
+.image {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: inline-block;
+}
+
+.title {
+  font-family: "Indie Flower", cursive;
+  font-size: 2rem;
+  color: white;
+  display: inline-block;
 }
