@@ -1,23 +1,30 @@
 import { useEffect, useState } from "react";
 import styles from "../../styles/header.module.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
+import { getAll } from "../../Services/SubCategories";
 
 export default function Header() {
-  const [list, setList] = useState([
-    "Trang chủ",
-    "Thể loại",
-    "Giới thiệu",
-    "Thông tin liên hệ",
-  ]);
-
   const [space, setSpace] = useState({ top: 0 });
-
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     window.addEventListener("scroll", (event) => {
       let value = window.scrollY;
       if (value <= 125) setSpace({ top: 0 - value });
       else if (space.top < 125) setSpace({ top: -125 });
     });
+  }, []);
+  useEffect(async () => {
+    const data = await getAll();
+    let array = [];
+    for (let i = 0; i < data.length; i += 5) {
+      const tmp = data.slice(i, i + 5);
+      array.push(tmp);
+    }
+    setCategories(array);
+    console.log(array);
+    return () => {
+      data.length = 0;
+    };
   }, []);
   return (
     <Container fluid style={{ padding: 0 }}>
@@ -31,37 +38,74 @@ export default function Header() {
           className="justify-content-md-left"
           style={{ zIndex: 2, position: "relative", margin: "0 2rem" }}
         >
-          {list.map((item, key) => (
-            <Col sm={5} md="auto" key={key}>
-              <Button
-                className={
-                  key === 0
-                    ? `${styles.navItem} ${styles.navItemActive} shadow-none`
-                    : `${styles.navItem} shadow-none`
-                }
+          <Col sm={5} md="auto">
+            <Button
+              className={`${styles.navItem} ${styles.navItemActive} shadow-none`}
+              href="#"
+            >
+              Trang chủ
+            </Button>
+          </Col>
+          <Col sm={5} md="auto">
+            <Dropdown>
+              <Dropdown.Toggle
+                className={`${styles.navItem} ${styles.dropdownToggle} shadow-none`}
+                id="dropdown-autoclose-true"
+                as="button"
                 href="#"
               >
-                {item}
-              </Button>
-            </Col>
-          ))}
+                Thể loại
+              </Dropdown.Toggle>
+              <Dropdown.Menu className={styles.menu}>
+                <Container fluid>
+                  <Row xs={12} md={11}>
+                    {categories.map((item, key1) => (
+                      <Col xs={12} md="auto" key={key1}>
+                        {item.map((item2, key2) => (
+                          <Row
+                            xs={12}
+                            className="justify-content-center"
+                            key={key2}
+                          >
+                            <Dropdown.Item href="#" className={styles.menuItem}>
+                              {item2.name}
+                            </Dropdown.Item>
+                          </Row>
+                        ))}
+                      </Col>
+                    ))}
+                  </Row>
+                </Container>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Col>
+          <Col sm={5} md="auto">
+            <Button className={`${styles.navItem} shadow-none`} href="#">
+              Giới thiệu
+            </Button>
+          </Col>
+          <Col sm={5} md="auto">
+            <Button className={`${styles.navItem} shadow-none`} href="#">
+              Thông tin liên hệ
+            </Button>
+          </Col>
         </Row>
       </Container>
       <Container fluid className={styles.SearchBarContainer}>
         <Row className=" justify-content-sm-center justify-content-md-start">
           <Col sm="auto" md={3}>
             <Row className=" justify-content-center justify-content-md-start align-content-center">
-              <Col xs={2} sm="auto" md="auto">
+              <Col xs="auto" sm="auto" md="auto">
                 <img src="/static/icon.png" className={styles.image}></img>
               </Col>
-              <Col xs={5} sm="auto" md={8} className={styles.title}>
+              <Col xs="auto" sm="auto" md={8} className={styles.title}>
                 DocoBook
               </Col>
             </Row>
           </Col>
           <Col sm={8} md={6}>
-            <Container fluid className={styles.searchBar}>
-              <Row>
+            <Container fluid className={styles.searchBar + " h-100"}>
+              <Row className="h-100 align-content-center">
                 <Col xs={1} sm="auto" md="auto">
                   <i className={"bi bi-search "}></i>
                 </Col>

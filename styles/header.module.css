@@ -8,7 +8,6 @@
   font-size: 16px;
   padding: 1.5rem 0;
   z-index: 1;
-  overflow: hidden;
 }
 
 .navItem {
@@ -18,8 +17,9 @@
   text-transform: uppercase;
   font-weight: 50;
   border-radius: 5rem;
+  margin-top: 0.5rem;
+  margin-right: 2rem;
   background-color: #93329e;
-  margin: 0.5rem 1rem;
   color: white;
   text-decoration: none;
   border: 0;
@@ -30,6 +30,12 @@
 .navItemActive {
   background-color: #440a67;
   color: #ffe3fe;
+  outline: none !important;
+  outline-offset: none !important;
+}
+
+.dropdownToggle:after {
+  display: none;
 }
 
 .myImage {
@@ -44,6 +50,8 @@
 .SearchBarContainer {
   background-color: #8d3e85;
   padding: 0.6rem 2rem;
+  z-index: 2;
+  position: relative;
 }
 
 .searchBar {
@@ -75,4 +83,34 @@
   font-size: 2rem;
   color: white;
   display: inline-block;
+}
+.menu {
+  background-color: #ffe3fe;
+  border-radius: 10px;
+  position: relative;
+  z-index: 100;
+}
+
+@media screen and (max-width: 999px) {
+  .menu {
+    overflow-y: scroll;
+    height: 12rem;
+  }
+}
+
+.menuItem {
+  width: 13rem;
+}
+
+@media screen and (min-width: 1000px) {
+  .menu {
+    background-color: #ffe3fe;
+    border-radius: 10px;
+    width: max-content;
+  }
+}
+
+.menuItem:hover {
+  background-color: #b4aee8;
+  color: black;
 }
