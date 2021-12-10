@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import styles from "../../styles/Home.module.css";
 import styles2 from "../../styles/footer.module.css";
 
-export default function MainPage() {
+const Footer = () => {
   return (
     <footer className={styles.footer}>
       <Container fluid className={styles2.footer}>
@@ -20,4 +20,6 @@ export default function MainPage() {
       </Container>
     </footer>
   );
-}
+};
+
+export default Footer;

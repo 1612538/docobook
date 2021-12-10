@@ -1,30 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styles from "../../styles/header.module.css";
 import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
-import { getAll } from "../../Services/SubCategories";
+import { Context } from "../../Context/Context";
 
-export default function Header() {
+const Header = () => {
   const [space, setSpace] = useState({ top: 0 });
-  const [categories, setCategories] = useState([]);
+  const categories = useContext(Context).state.categories;
   useEffect(() => {
     window.addEventListener("scroll", (event) => {
       let value = window.scrollY;
       if (value <= 125) setSpace({ top: 0 - value });
       else if (space.top < 125) setSpace({ top: -125 });
     });
-  }, []);
-  useEffect(async () => {
-    const data = await getAll();
-    let array = [];
-    for (let i = 0; i < data.length; i += 5) {
-      const tmp = data.slice(i, i + 5);
-      array.push(tmp);
-    }
-    setCategories(array);
-    console.log(array);
-    return () => {
-      data.length = 0;
-    };
   }, []);
   return (
     <Container fluid style={{ padding: 0 }}>
@@ -59,21 +46,26 @@ export default function Header() {
               <Dropdown.Menu className={styles.menu}>
                 <Container fluid>
                   <Row xs={12} md={11}>
-                    {categories.map((item, key1) => (
-                      <Col xs={12} md="auto" key={key1}>
-                        {item.map((item2, key2) => (
-                          <Row
-                            xs={12}
-                            className="justify-content-center"
-                            key={key2}
-                          >
-                            <Dropdown.Item href="#" className={styles.menuItem}>
-                              {item2.name}
-                            </Dropdown.Item>
-                          </Row>
-                        ))}
-                      </Col>
-                    ))}
+                    {categories
+                      ? categories.map((item, key1) => (
+                          <Col xs={12} md="auto" key={key1}>
+                            {item.map((item2, key2) => (
+                              <Row
+                                xs={12}
+                                className="justify-content-center"
+                                key={key2}
+                              >
+                                <Dropdown.Item
+                                  href="#"
+                                  className={styles.menuItem}
+                                >
+                                  {item2.name}
+                                </Dropdown.Item>
+                              </Row>
+                            ))}
+                          </Col>
+                        ))
+                      : undefined}
                   </Row>
                 </Container>
               </Dropdown.Menu>
@@ -122,4 +114,6 @@ export default function Header() {
       </Container>
     </Container>
   );
-}
+};
+
+export default Header;
