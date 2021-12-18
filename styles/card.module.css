@@ -1,0 +1,37 @@
+.noPadding {
+  padding: 0;
+  border: 1px solid #6c10a5;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.imgCustom {
+  height: max-content;
+  width: 100%;
+  height: calc(100vw * 0.15);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+@media screen and (max-width: 992px) {
+  .imgCustom {
+    height: calc(100vw * 0.3);
+  }
+}
+@media screen and (max-width: 768px) {
+  .imgCustom {
+    height: calc(100vw * 0.6);
+  }
+}
+.title {
+  width: 100%;
+  margin: 0;
+  padding: 0.3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: #ffe3fe;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-align: center;
+}

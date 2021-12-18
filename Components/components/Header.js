@@ -1,11 +1,16 @@
 import { useEffect, useState, useContext } from "react";
 import styles from "../../styles/header.module.css";
-import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { Context } from "../../Context/Context";
 
 const Header = () => {
   const [space, setSpace] = useState({ top: 0 });
   const categories = useContext(Context).state.categories;
+  const countries = useContext(Context).state.countries;
+  const [show, setShow] = useState(false);
+  const [active, setActive] = useState(false);
+  const [show2, setShow2] = useState(false);
+  const [active2, setActive2] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", (event) => {
       let value = window.scrollY;
@@ -34,16 +39,33 @@ const Header = () => {
             </Button>
           </Col>
           <Col sm={5} md="auto">
-            <Dropdown>
-              <Dropdown.Toggle
-                className={`${styles.navItem} ${styles.dropdownToggle} shadow-none`}
-                id="dropdown-autoclose-true"
-                as="button"
-                href="#"
+            <div
+              className={styles.dropdown}
+              onMouseEnter={() => {
+                setShow(true);
+                setActive(true);
+              }}
+              onMouseLeave={() => {
+                setShow(false);
+                setActive(false);
+              }}
+            >
+              <Button
+                className={`${styles.navItem} ${
+                  active ? styles.navItemActive : ""
+                } shadow-none`}
+                style={{ marginTop: "0rem", marginRight: "0rem" }}
+                onClick={() => {
+                  setShow(true);
+                  setActive(true);
+                }}
               >
                 Thể loại
-              </Dropdown.Toggle>
-              <Dropdown.Menu className={styles.menu}>
+              </Button>
+              <div
+                className={styles.menu}
+                style={show ? { display: "block" } : { display: "none" }}
+              >
                 <Container fluid>
                   <Row xs={12} md={11}>
                     {categories
@@ -55,12 +77,13 @@ const Header = () => {
                                 className="justify-content-center"
                                 key={key2}
                               >
-                                <Dropdown.Item
+                                <div
+                                  className={styles.menuItem}
                                   href="#"
                                   className={styles.menuItem}
                                 >
                                   {item2.name}
-                                </Dropdown.Item>
+                                </div>
                               </Row>
                             ))}
                           </Col>
@@ -68,13 +91,64 @@ const Header = () => {
                       : undefined}
                   </Row>
                 </Container>
-              </Dropdown.Menu>
-            </Dropdown>
+              </div>
+            </div>
           </Col>
           <Col sm={5} md="auto">
-            <Button className={`${styles.navItem} shadow-none`} href="#">
-              Giới thiệu
-            </Button>
+            <div
+              className={styles.dropdown}
+              onMouseEnter={() => {
+                setShow2(true);
+                setActive2(true);
+              }}
+              onMouseLeave={() => {
+                setShow2(false);
+                setActive2(false);
+              }}
+            >
+              <Button
+                className={`${styles.navItem} ${
+                  active2 ? styles.navItemActive : ""
+                } shadow-none`}
+                style={{ marginTop: "0rem", marginRight: "0rem" }}
+                onClick={() => {
+                  setShow2(true);
+                  setActive2(true);
+                }}
+              >
+                Quốc gia
+              </Button>
+              <div
+                className={styles.menu}
+                style={show2 ? { display: "block" } : { display: "none" }}
+              >
+                <Container fluid>
+                  <Row xs={12} md={11}>
+                    {countries
+                      ? countries.map((item, key1) => (
+                          <Col xs={12} md="auto" key={key1}>
+                            {item.map((item2, key2) => (
+                              <Row
+                                xs={12}
+                                className="justify-content-center"
+                                key={key2}
+                              >
+                                <div
+                                  className={styles.menuItem}
+                                  href="#"
+                                  className={styles.menuItem}
+                                >
+                                  {item2.name}
+                                </div>
+                              </Row>
+                            ))}
+                          </Col>
+                        ))
+                      : undefined}
+                  </Row>
+                </Container>
+              </div>
+            </div>
           </Col>
           <Col sm={5} md="auto">
             <Button className={`${styles.navItem} shadow-none`} href="#">
