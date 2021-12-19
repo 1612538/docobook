@@ -3,6 +3,11 @@
   border: 1px solid #6c10a5;
   border-radius: 5px;
   position: relative;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.noPadding:hover {
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 .imgCustom {
@@ -33,7 +38,6 @@
 
 .menu {
   background-color: rgba(0, 0, 0, 0.9);
-  display: none;
   position: absolute;
   width: 22rem;
   z-index: 1;
@@ -47,7 +51,6 @@
 
 .menu_left {
   background-color: rgba(0, 0, 0, 0.9);
-  display: none;
   position: absolute;
   width: 22rem;
   z-index: 1;
@@ -57,7 +60,6 @@
   min-height: calc(100% + 2px);
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  overflow: hidden;
 }
 
 .sub_title {
@@ -68,7 +70,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   margin: 0;
-  padding: 0.4rem;
+  padding: 0.4rem 0.8rem;
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;

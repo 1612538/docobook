@@ -1,0 +1,24 @@
+.imgCustom {
+  height: 100px;
+  width: 75px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.noPadding {
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.noPadding:hover {
+  background-color: #b4aee8;
+  padding-left: 20px;
+}

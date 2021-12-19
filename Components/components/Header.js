@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import styles from "../../styles/header.module.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Fade } from "react-bootstrap";
 import { Context } from "../../Context/Context";
+import SearchHeader from "./SearchHeader";
 
 const Header = () => {
   const [space, setSpace] = useState({ top: 0 });
@@ -11,6 +12,7 @@ const Header = () => {
   const [active, setActive] = useState(false);
   const [show2, setShow2] = useState(false);
   const [active2, setActive2] = useState(false);
+  const [keyword, setKeyword] = useState("");
   useEffect(() => {
     window.addEventListener("scroll", (event) => {
       let value = window.scrollY;
@@ -62,36 +64,35 @@ const Header = () => {
               >
                 Thể loại
               </Button>
-              <div
-                className={styles.menu}
-                style={show ? { display: "block" } : { display: "none" }}
-              >
-                <Container fluid>
-                  <Row xs={12} md={11}>
-                    {categories
-                      ? categories.map((item, key1) => (
-                          <Col xs={12} md="auto" key={key1}>
-                            {item.map((item2, key2) => (
-                              <Row
-                                xs={12}
-                                className="justify-content-center"
-                                key={key2}
-                              >
-                                <div
-                                  className={styles.menuItem}
-                                  href="#"
-                                  className={styles.menuItem}
+              <Fade in={show} unmountOnExit>
+                <div className={styles.menu}>
+                  <Container fluid>
+                    <Row xs={12} md={11}>
+                      {categories
+                        ? categories.map((item, key1) => (
+                            <Col xs={12} md="auto" key={key1}>
+                              {item.map((item2, key2) => (
+                                <Row
+                                  xs={12}
+                                  className="justify-content-center"
+                                  key={key2}
                                 >
-                                  {item2.name}
-                                </div>
-                              </Row>
-                            ))}
-                          </Col>
-                        ))
-                      : undefined}
-                  </Row>
-                </Container>
-              </div>
+                                  <div
+                                    className={styles.menuItem}
+                                    href="#"
+                                    className={styles.menuItem}
+                                  >
+                                    {item2.name}
+                                  </div>
+                                </Row>
+                              ))}
+                            </Col>
+                          ))
+                        : undefined}
+                    </Row>
+                  </Container>
+                </div>
+              </Fade>
             </div>
           </Col>
           <Col sm={5} md="auto">
@@ -118,36 +119,35 @@ const Header = () => {
               >
                 Quốc gia
               </Button>
-              <div
-                className={styles.menu}
-                style={show2 ? { display: "block" } : { display: "none" }}
-              >
-                <Container fluid>
-                  <Row xs={12} md={11}>
-                    {countries
-                      ? countries.map((item, key1) => (
-                          <Col xs={12} md="auto" key={key1}>
-                            {item.map((item2, key2) => (
-                              <Row
-                                xs={12}
-                                className="justify-content-center"
-                                key={key2}
-                              >
-                                <div
-                                  className={styles.menuItem}
-                                  href="#"
-                                  className={styles.menuItem}
+              <Fade in={show2} unmountOnExit>
+                <div className={styles.menu}>
+                  <Container fluid>
+                    <Row xs={12} md={11}>
+                      {countries
+                        ? countries.map((item, key1) => (
+                            <Col xs={12} md="auto" key={key1}>
+                              {item.map((item2, key2) => (
+                                <Row
+                                  xs={12}
+                                  className="justify-content-center"
+                                  key={key2}
                                 >
-                                  {item2.name}
-                                </div>
-                              </Row>
-                            ))}
-                          </Col>
-                        ))
-                      : undefined}
-                  </Row>
-                </Container>
-              </div>
+                                  <div
+                                    className={styles.menuItem}
+                                    href="#"
+                                    className={styles.menuItem}
+                                  >
+                                    {item2.name}
+                                  </div>
+                                </Row>
+                              ))}
+                            </Col>
+                          ))
+                        : undefined}
+                    </Row>
+                  </Container>
+                </div>
+              </Fade>
             </div>
           </Col>
           <Col sm={5} md="auto">
@@ -169,7 +169,7 @@ const Header = () => {
               </Col>
             </Row>
           </Col>
-          <Col sm={8} md={6}>
+          <Col sm={8} md={6} style={{ position: "relative" }}>
             <Container fluid className={styles.searchBar + " h-100"}>
               <Row className="h-100 align-content-center">
                 <Col xs={1} sm="auto" md="auto">
@@ -178,11 +178,17 @@ const Header = () => {
                 <Col xs={10} sm={10} md={10}>
                   <input
                     placeholder="Tìm kiếm..."
+                    onChange={(e) => {
+                      setKeyword(e.target.value);
+                    }}
                     className={styles.search}
                   ></input>
                 </Col>
               </Row>
             </Container>
+            <Row>
+              <SearchHeader keyword={keyword}></SearchHeader>
+            </Row>
           </Col>
         </Row>
       </Container>

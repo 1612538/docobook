@@ -47,7 +47,7 @@
 .SearchBarContainer {
   background-color: #8d3e85;
   padding: 0.6rem 2rem;
-  z-index: 2;
+  z-index: 20;
   position: relative;
 }
 
@@ -55,6 +55,7 @@
   border-radius: 5rem;
   padding: 0.6rem 1rem;
   background-color: white;
+  position: relative;
 }
 
 .search {
@@ -85,7 +86,6 @@
 .menu {
   background-color: #ffe3fe;
   border-radius: 10px;
-  display: none;
   position: absolute;
   min-width: 160px;
   box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 1);
