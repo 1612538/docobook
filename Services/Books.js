@@ -26,6 +26,20 @@ export const getAllByPage = async (page, limit) => {
   }
 };
 
+export const getAllByViewsByPage = async (page, limit) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:1337/BookInfos?_sort=views:DESC&_start=${
+        (page - 1) * limit
+      }&_limit=${limit}`
+    );
+    return await res.data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
 export const getOne = async (id) => {
   try {
     const res = await axios.get("http://localhost:1337/BookInfos?id=" + id);

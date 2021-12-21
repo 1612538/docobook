@@ -5,3 +5,37 @@
   position: relative;
   overflow: hidden;
 }
+
+.discussionTitle {
+  display: block;
+}
+
+.discuss {
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: block;
+  padding: 1rem 1.5rem;
+  width: 100%;
+}
+
+.discussItem {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 3px 0;
+  cursor: pointer;
+}
+
+.discussItem:hover {
+  color: #8d3e85;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 991px) {
+  .discussionTitle {
+    display: none;
+  }
+  .discuss {
+    display: none;
+  }
+}

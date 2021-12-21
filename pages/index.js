@@ -3,16 +3,26 @@ import App from "../components/App";
 import { Context } from "../Context/Context";
 import { ParseGetAll } from "../Services/SubCategories";
 import { ParseGetAll as ParseGetAll2 } from "../Services/Countries";
-import { getAllByPage } from "../Services/Books";
+import {
+  getAllByPage,
+  getAllByViewsByPage as getByView,
+} from "../Services/Books";
 import { getAllByPage as getChapters } from "../Services/BookChapters";
 
-export default function Home({ categories, countries, books, chapters }) {
+export default function Home({ categories, countries }) {
   const context = useContext(Context);
   useEffect(() => {
+    const fetchData = async () => {
+      const BooksByViews = await getByView(1, 6);
+      context.handle.handleBooksByViews(BooksByViews);
+      const books = await getAllByPage(1, 12);
+      context.handle.handleBooks(books);
+      const chapters = await getChapters(1, 18);
+      context.handle.handleChapters(chapters);
+    };
     context.handle.handleCategories(categories);
     context.handle.handleCountries(countries);
-    context.handle.handleBooks(books);
-    context.handle.handleChapters(chapters);
+    fetchData();
   }, []);
   return <App />;
 }
@@ -20,14 +30,10 @@ export default function Home({ categories, countries, books, chapters }) {
 export const getStaticProps = async () => {
   const categories = await ParseGetAll();
   const countries = await ParseGetAll2();
-  const books = await getAllByPage(1, 12);
-  const chapters = await getChapters(1, 18);
   return {
     props: {
       categories,
       countries,
-      books,
-      chapters,
     },
   };
 };
