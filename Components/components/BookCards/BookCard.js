@@ -8,10 +8,14 @@ const BookCard = ({ Book }) => {
   const myRef = useRef(null);
   useEffect(() => {
     const updateWindowDimensions = () => {
-      if (myRef.current.getBoundingClientRect().right + 352 > window.innerWidth)
+      if (
+        myRef &&
+        myRef.current.getBoundingClientRect().right + 352 > window.innerWidth
+      )
         setLeft(true);
       else setLeft(false);
     };
+    updateWindowDimensions();
     window.addEventListener("resize", updateWindowDimensions);
     return () => window.removeEventListener("resize", updateWindowDimensions);
   }, []);

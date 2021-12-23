@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Container, Col, Row, Button, Fade } from "react-bootstrap";
 import styles from "../../styles/mainPage.module.css";
 import { Context } from "../../Context/Context";
 import BookCards from "./BookCards/BookCard";
@@ -9,8 +9,33 @@ import Discuss from "./Utils/Discuss";
 
 const MainPage = () => {
   const books = useContext(Context).state.books;
-  const booksMostView = useContext(Context).state.booksByViews;
   const chapters = useContext(Context).state.chapters;
+  const ListMostView = useContext(Context).state.booksByViews;
+  const [booksMostView, setBooksMostView] = useState([]);
+  const [active, setActive] = useState(0);
+  const [length, setLength] = useState(6);
+  useEffect(() => {
+    let array = [];
+    let position = 0;
+    if (ListMostView && ListMostView.length > 0) {
+      while (position < ListMostView.length) {
+        array.push(ListMostView.slice(position, position + length));
+        position += length;
+      }
+    }
+    setBooksMostView([...array]);
+    console.log(length);
+  }, [ListMostView, length]);
+  useEffect(() => {
+    const updateWindowDimensions = () => {
+      if (window.innerWidth < 992)
+        if (window.innerWidth < 767) setLength(2);
+        else setLength(4);
+      else setLength(6);
+    };
+    window.addEventListener("resize", updateWindowDimensions);
+    return () => window.removeEventListener("resize", updateWindowDimensions);
+  }, []);
   return (
     <Container fluid className={styles.mainBox + " py-5 px-3"}>
       <Row>
@@ -23,22 +48,81 @@ const MainPage = () => {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col xs={9}>
-          <Row className="justify-content-center align-items-center">
+        <Col xs={11} md={9}>
+          <Row className={styles.customRow + " justify-content-center"}>
+            <Button
+              className={
+                styles.previousStyle + " " + styles.iconStyle + " shadow-none"
+              }
+              onClick={() => {
+                setActive(-1);
+                setTimeout(() => {
+                  if (active - 1 < 0) setActive(booksMostView.length - 1);
+                  else setActive(active - 1);
+                }, 500);
+              }}
+            >
+              <i className="bi bi-caret-left-fill"></i>
+            </Button>
+            <Button
+              className={
+                styles.nextStyle + " " + styles.iconStyle + " shadow-none"
+              }
+              onClick={() => {
+                setActive(-1);
+                setTimeout(() => {
+                  if (active + 1 > booksMostView.length - 1) setActive(0);
+                  else setActive(active + 1);
+                }, 500);
+              }}
+            >
+              <i className="bi bi-caret-right-fill"></i>
+            </Button>
             {booksMostView && booksMostView.length > 0 ? (
-              booksMostView.map((item, key) => (
-                <Col xs={6} md={3} lg={2} key={key}>
-                  <BookCards Book={item}></BookCards>
-                </Col>
+              booksMostView.map((listbooks, key) => (
+                <Fade
+                  in={active === key ? true : false}
+                  unmountOnExit
+                  key={key}
+                  timeout={1000}
+                >
+                  <Row className="justify-content-center align-items-center">
+                    {listbooks && listbooks.length > 0 ? (
+                      listbooks.map((item, key2) => (
+                        <Col xs={6} md={3} lg={2} key={key2}>
+                          <BookCards Book={item}></BookCards>
+                        </Col>
+                      ))
+                    ) : (
+                      <Row
+                        className={
+                          styles.customRow +
+                          " m-0 justify-content-center align-items-center"
+                        }
+                      >
+                        <div className="spinner-border" role="status"></div>
+                      </Row>
+                    )}
+                  </Row>
+                </Fade>
               ))
             ) : (
               <Row
-                className="m-0 justify-content-center align-items-center"
-                style={{ height: 100 }}
+                className={
+                  styles.customRow +
+                  " m-0 justify-content-center align-items-center"
+                }
               >
                 <div className="spinner-border" role="status"></div>
               </Row>
             )}
+          </Row>
+          <Row className="justify-content-end align-items-center pt-2">
+            <Col xs="auto" style={{ paddingRight: "1.5rem" }}>
+              <Button className={styles.buttonStyle + " shadow-none"}>
+                Xem thêm
+              </Button>
+            </Col>
           </Row>
         </Col>
       </Row>
@@ -67,6 +151,13 @@ const MainPage = () => {
                 <div className="spinner-border" role="status"></div>
               </Row>
             )}
+          </Row>
+          <Row className="justify-content-end align-items-center pt-2">
+            <Col xs="auto">
+              <Button className={styles.buttonStyle + " shadow-none"}>
+                Xem thêm
+              </Button>
+            </Col>
           </Row>
         </Col>
         <Col xs={0} lg={3}>
@@ -98,6 +189,13 @@ const MainPage = () => {
                 <div className="spinner-border" role="status"></div>
               </Row>
             )}
+          </Row>
+          <Row className="justify-content-end align-items-center pt-2">
+            <Col xs="auto">
+              <Button className={styles.buttonStyle + " shadow-none"}>
+                Xem thêm
+              </Button>
+            </Col>
           </Row>
         </Col>
         <Col xs={0} lg={3}>

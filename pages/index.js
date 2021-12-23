@@ -13,7 +13,7 @@ export default function Home({ categories, countries }) {
   const context = useContext(Context);
   useEffect(() => {
     const fetchData = async () => {
-      const BooksByViews = await getByView(1, 6);
+      const BooksByViews = await getByView(1, 12);
       context.handle.handleBooksByViews(BooksByViews);
       const books = await getAllByPage(1, 12);
       context.handle.handleBooks(books);
