@@ -1,10 +1,9 @@
 import axios from "axios";
+const url = "http://localhost:1337/";
 
 export const getAll = async () => {
   try {
-    const res = await axios.get(
-      "http://localhost:1337/BookInfos?_sort=created_at:DESC"
-    );
+    const res = await axios.get(url + "BookInfos?_sort=created_at:DESC");
     return await res.data;
   } catch (err) {
     console.log(err);
@@ -15,7 +14,7 @@ export const getAll = async () => {
 export const getAllByPage = async (page, limit) => {
   try {
     const res = await axios.get(
-      `http://localhost:1337/BookInfos?_sort=created_at:DESC&_start=${
+      `${url}BookInfos?_sort=created_at:DESC&_start=${
         (page - 1) * limit
       }&_limit=${limit}`
     );
@@ -29,7 +28,7 @@ export const getAllByPage = async (page, limit) => {
 export const getAllByViewsByPage = async (page, limit) => {
   try {
     const res = await axios.get(
-      `http://localhost:1337/BookInfos?_sort=views:DESC&_start=${
+      `${url}BookInfos?_sort=views:DESC&_start=${
         (page - 1) * limit
       }&_limit=${limit}`
     );
@@ -42,8 +41,7 @@ export const getAllByViewsByPage = async (page, limit) => {
 
 export const getOne = async (id) => {
   try {
-    const res = await axios.get("http://localhost:1337/BookInfos?id=" + id);
-    console.log(res.data);
+    const res = await axios.get(url + "BookInfos?id=" + id);
     return await res.data[0];
   } catch (err) {
     console.log(err);
@@ -52,9 +50,7 @@ export const getOne = async (id) => {
 
 export const getAllByKeyword = async (keyword) => {
   try {
-    const res = await axios.get(
-      "http://localhost:1337/BookInfos?name_contains=" + keyword
-    );
+    const res = await axios.get(url + "BookInfos?name_contains=" + keyword);
     return await res.data;
   } catch (err) {
     console.log(err);
