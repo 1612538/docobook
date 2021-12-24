@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import BookInfos from "../../components/BookInfos";
-import { BookInfosContext } from "../../Context/BookInfosContext";
+import { Context as Cont } from "../../Context/BookInfosContext";
 import { Context } from "../../Context/Context";
 import { ParseGetAll } from "../../Services/SubCategories";
 import { ParseGetAll as ParseGetAll2 } from "../../Services/Countries";
@@ -8,7 +8,7 @@ import { getOne } from "../../Services/Books";
 import { getByBook } from "../../Services/BookChapters";
 
 const BookInfo = ({ categories, countries, BookInfo }) => {
-  const context = useContext(BookInfosContext);
+  const context = useContext(Cont);
   const context2 = useContext(Context);
   useEffect(() => {
     const fetchData = async () => {
@@ -17,6 +17,8 @@ const BookInfo = ({ categories, countries, BookInfo }) => {
     };
     context2.handle.handleCategories(categories);
     context2.handle.handleCountries(countries);
+    context.handle.handleBook(BookInfo);
+    console.log(BookInfo);
     fetchData();
   }, []);
   return <BookInfos />;

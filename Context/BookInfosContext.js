@@ -1,13 +1,12 @@
 import { createContext, useState } from "react";
-export const BookInfosContext = createContext();
+export const Context = createContext();
 export const Provider = ({ children }) => {
-  const [book, setBook] = useState({});
+  const [book, setBook] = useState(null);
   const [chapters, setChapters] = useState([]);
   const handleBook = (Book) => {
-    setBook({ ...Book });
+    setBook(Book);
   };
   const handleChapters = (Chapters) => {
-    console.log(Chapters);
     setChapters([...Chapters]);
   };
   const ContextProps = {
@@ -20,9 +19,5 @@ export const Provider = ({ children }) => {
       handleChapters,
     },
   };
-  return (
-    <BookInfosContext.Provider value={ContextProps}>
-      {children}
-    </BookInfosContext.Provider>
-  );
+  return <Context.Provider value={ContextProps}>{children}</Context.Provider>;
 };

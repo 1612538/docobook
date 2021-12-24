@@ -11,7 +11,6 @@
 }
 
 .imgCustom {
-  height: max-content;
   width: 100%;
   height: calc(100vw * 0.15);
   background-position: center;

@@ -1,3 +1,10 @@
+.mainContainer {
+  min-height: 50rem;
+  background: linear-gradient(180deg, #ffe3fe 0%, #b4aee8 100%);
+  z-index: 2;
+  position: relative;
+  overflow: hidden;
+}
 .myContainer {
   margin: 3rem auto;
   width: "80%";

@@ -24,7 +24,6 @@ const MainPage = () => {
       }
     }
     setBooksMostView([...array]);
-    console.log(length);
   }, [ListMostView, length]);
   useEffect(() => {
     const updateWindowDimensions = () => {

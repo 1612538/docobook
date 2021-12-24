@@ -6,8 +6,7 @@ import SearchHeader from "./SearchHeader";
 
 const Header = () => {
   const [space, setSpace] = useState({ top: 0 });
-  const categories = useContext(Context).state.categories;
-  const countries = useContext(Context).state.countries;
+  const { categories, countries } = useContext(Context).state;
   const [show, setShow] = useState(false);
   const [active, setActive] = useState(false);
   const [show2, setShow2] = useState(false);
