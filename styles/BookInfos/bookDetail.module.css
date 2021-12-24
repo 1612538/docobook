@@ -12,6 +12,7 @@
   padding: 2rem 1rem;
   border-radius: 5px;
   height: max-content;
+  border: 1px solid #dd76d3;
 }
 
 .title {

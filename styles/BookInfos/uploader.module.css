@@ -1,0 +1,41 @@
+.myContainer {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0;
+  border-radius: 5px;
+  max-height: "1000px";
+  min-height: max-content;
+  overflow: hidden;
+  border: 1px solid #dd76d3;
+}
+
+.Header {
+  background-color: #b4aee8;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 1rem 3rem;
+}
+
+.userSection {
+  min-height: 500px;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  background-color: #cccccc;
+  border-radius: 50%;
+}
+.cssHeart {
+  color: #fb8da0;
+  width: max-content;
+  font-size: 1.8rem;
+}
+.cssHeart:hover {
+  color: #fb4570;
+}
+
+.cssStar {
+  color: #fdda0d;
+  width: max-content;
+  font-size: 1.8rem;
+}

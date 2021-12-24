@@ -1,0 +1,21 @@
+.myContainer {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0;
+  border-radius: 5px;
+  max-height: "1000px";
+  min-height: max-content;
+  margin-top: 2rem;
+  border: 1px solid #dd76d3;
+  overflow: hidden;
+}
+
+.Header {
+  background-color: #b4aee8;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding: 1rem 3rem;
+}
+
+.commentSection {
+  min-height: 500px;
+}

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Context } from "../../../Context/BookInfosContext";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "../../../styles/BookInfos/bookDetail.module.css";
@@ -154,13 +154,13 @@ const BookDetail = () => {
               <Row className="justify-content-center">
                 <Row className="justify-content-center">Lượt thích</Row>
                 <Row className="justify-content-center w-100">
-                  {book.likes ? books.likes : 0}
+                  {book.likes ? book.likes : 0}
                 </Row>
               </Row>
             </Col>
           </Row>
           <Row className="mt-2 justify-content-center align-items-center">
-            <h5>Tóm tắt</h5>
+            <h5 className="ms-5">Tóm tắt</h5>
             <div className={styles.text}>{book.description}</div>
           </Row>
         </Row>
