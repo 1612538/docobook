@@ -26,6 +26,7 @@
   border-radius: 100px;
   padding: 5px 10px;
   margin: 0 5px 3px 5px;
+  cursor: pointer;
 }
 .cssHeart {
   color: #fb8da0;
