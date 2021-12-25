@@ -22,7 +22,7 @@
 
 .formBox {
   width: 90%;
-  margin: 10vh auto;
+  margin: 8vh auto;
   display: flex;
   justify-content: center;
 }
@@ -56,4 +56,16 @@
 .buttonLogin:active,
 .buttonLogin:focus {
   background-color: #72326c;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background-color: #72326c;
+  border-radius: 50%;
+  color: white;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

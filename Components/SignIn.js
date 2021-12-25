@@ -1,6 +1,8 @@
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import styles from "../styles/SignIn/SignIn.module.css";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 const SignIn = () => {
   const [validated, setValidated] = useState(false);
@@ -30,6 +32,11 @@ const SignIn = () => {
       <Col xs={12} md={3} className={styles.myContainer}>
         <Container fluid className={styles.formBox}>
           <Container fluid>
+            <Row className="justify-content-center mb-2">
+              <Col xs="auto" className={styles.avatar}>
+                <FontAwesomeIcon icon={faLock} />
+              </Col>
+            </Row>
             <Col xs={12} className={styles.title}>
               <h3>Đăng nhập</h3>
             </Col>
@@ -37,7 +44,7 @@ const SignIn = () => {
               noValidate
               validated={validated}
               onSubmit={handleSubmit}
-              className="pt-5"
+              className="pt-4"
             >
               <Col xs={12} className="p-1">
                 <Form.Group

@@ -1,6 +1,8 @@
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import styles from "../styles/SignUp/SignUp.module.css";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 const SignUp = () => {
   const [validated, setValidated] = useState(false);
@@ -30,6 +32,11 @@ const SignUp = () => {
       <Col xs={12} md={3} className={styles.myContainer}>
         <Container fluid className={styles.formBox}>
           <Container fluid>
+            <Row className="justify-content-center mb-2">
+              <Col xs="auto" className={styles.avatar}>
+                <FontAwesomeIcon icon={faLock} />
+              </Col>
+            </Row>
             <Col xs={12} className={styles.title}>
               <h3>Đăng ký</h3>
             </Col>
@@ -37,7 +44,7 @@ const SignUp = () => {
               noValidate
               validated={validated}
               onSubmit={handleSubmit}
-              className="pt-5"
+              className="pt-4"
             >
               <Col xs={12} className="px-1">
                 <Form.Group
@@ -116,14 +123,14 @@ const SignUp = () => {
                 <Form.Group
                   as={Row}
                   className="mb-3"
-                  controlId="formHorizontalPassword"
+                  controlId="formHorizontalText1"
                 >
                   <Form.Label>
                     <b>Username</b>
                   </Form.Label>
                   <Col xs={12}>
                     <Form.Control
-                      type="password"
+                      type="text"
                       className={styles.formFormat}
                       placeholder="Nhập username.."
                       required
@@ -138,14 +145,14 @@ const SignUp = () => {
                 <Form.Group
                   as={Row}
                   className="mb-3"
-                  controlId="formHorizontalPassword"
+                  controlId="formHorizontalText2"
                 >
                   <Form.Label>
                     <b>Họ tên</b>
                   </Form.Label>
                   <Col xs={12}>
                     <Form.Control
-                      type="password"
+                      type="text"
                       className={styles.formFormat}
                       placeholder="Nhập họ tên.."
                       required

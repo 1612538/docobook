@@ -25,10 +25,17 @@ export const getAllByPage = async (page, limit) => {
   }
 };
 
-export const getOne = async (id) => {
+export const getOne = async (idbook, chapternumber) => {
   try {
-    const res = await axios.get(url + "BookChapters?id=" + id);
-    return await res.data[0];
+    const res = await axios.get(
+      url +
+        "BookChapters?bookinfo.id=" +
+        idbook +
+        "&chapternumber=" +
+        chapternumber
+    );
+    if (res.data.length > 0) return await res.data[0];
+    return null;
   } catch (err) {
     console.log(err);
   }

@@ -1,0 +1,47 @@
+.mainBox {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: max-content;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid #93329e;
+  overflow: hidden;
+  padding: 0;
+}
+
+.iconFormat {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  background-color: #b4aee8;
+  border-bottom: 1px solid #93329e;
+}
+.disabled {
+  background-color: #cec9fc;
+  color: #666;
+  cursor: default;
+}
+.iconSize {
+  margin: auto;
+  width: 25px;
+  height: fit-content;
+  overflow: hidden;
+}
+@media screen and (max-width: 991px) {
+  .mainBox {
+    flex-direction: row;
+    margin: auto;
+    right: 0;
+    left: 0;
+  }
+  .iconFormat {
+    border-bottom: 0;
+    border-right: 1px solid #93329e;
+  }
+}
