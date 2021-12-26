@@ -65,3 +65,21 @@ export const getAllByUploader = async (id) => {
     console.log(err);
   }
 };
+
+export const getAllByCategory = async (id) => {
+  try {
+    const res = await axios.get(url + "BookInfos?categories.id_in=" + id);
+    return await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getAllByCountry = async (id) => {
+  try {
+    const res = await axios.get(url + "BookInfos?country.id_in=" + id);
+    return await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
