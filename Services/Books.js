@@ -56,3 +56,12 @@ export const getAllByKeyword = async (keyword) => {
     console.log(err);
   }
 };
+
+export const getAllByUploader = async (id) => {
+  try {
+    const res = await axios.get(url + "BookInfos?uploader.id=" + id);
+    return await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

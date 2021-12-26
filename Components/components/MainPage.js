@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Container, Col, Row, Button, Fade } from "react-bootstrap";
 import styles from "../../styles/mainPage.module.css";
 import { Context } from "../../Context/Context";
-import BookCards from "./BookCards/BookCard";
+import BookCard from "./BookCards/BookCard";
 import ChapterCards from "./BookCards/ChapterCard";
 import Title from "./Title/Title";
 import Discuss from "./Utils/Discuss";
@@ -89,7 +89,7 @@ const MainPage = () => {
                     {listbooks && listbooks.length > 0 ? (
                       listbooks.map((item, key2) => (
                         <Col xs={6} md={3} lg={2} key={key2}>
-                          <BookCards Book={item}></BookCards>
+                          <BookCard Book={item}></BookCard>
                         </Col>
                       ))
                     ) : (
@@ -139,7 +139,7 @@ const MainPage = () => {
             {books && books.length > 0 ? (
               books.map((item, key) => (
                 <Col xs={6} md={3} lg={2} key={key}>
-                  <BookCards Book={item}></BookCards>
+                  <BookCard Book={item}></BookCard>
                 </Col>
               ))
             ) : (

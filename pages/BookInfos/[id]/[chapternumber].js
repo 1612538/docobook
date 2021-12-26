@@ -1,14 +1,17 @@
 import { useEffect, useContext } from "react";
 import { Context } from "../../../Context/BookInfosContext";
-import { getOne } from "../../../Services/BookChapters";
+import { getOne, getByBook } from "../../../Services/BookChapters";
 import BookChapter from "../../../Components/BookChapter";
 
 const ChapterNumber = ({ chapter, first, last }) => {
   const context = useContext(Context);
   useEffect(() => {
+    const fetchData = async () => {
+      const chapters = await getByBook(chapter.bookinfo.id.toString());
+      context.handle.handleChapters(chapters);
+    };
     context.handle.handleChapter(chapter);
-    context.handle.handleFirst(first);
-    context.handle.handleLast(last);
+    fetchData();
   }, []);
   return <BookChapter />;
 };
@@ -31,20 +34,10 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   const chapter = await getOne(params.id, params.chapternumber);
-  const isLast = await getOne(
-    params.id,
-    (parseInt(params.chapternumber) + 1).toString()
-  );
-  const isFirst = await getOne(
-    params.id,
-    (parseInt(params.chapternumber) - 1).toString()
-  );
   return {
     props: {
       key: chapter.id,
       chapter,
-      last: isLast ? 0 : 1,
-      first: isFirst ? 0 : 1,
     },
   };
 };

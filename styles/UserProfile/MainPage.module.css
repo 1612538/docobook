@@ -1,0 +1,33 @@
+.mainBox {
+  min-height: 50rem;
+  background: linear-gradient(180deg, #ffe3fe 0%, #b4aee8 100%);
+  z-index: 2;
+  position: relative;
+  overflow: hidden;
+}
+
+.userProfile {
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 3rem 0;
+  border-radius: 5px;
+  width: 90%;
+  min-height: 300px;
+  max-height: max-content;
+}
+
+.rowFormat {
+  flex-direction: row;
+}
+
+@media screen and (max-width: 768px) {
+  .rowFormat {
+    flex-direction: column-reverse;
+  }
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  background-color: #cccccc;
+  border-radius: 50%;
+}

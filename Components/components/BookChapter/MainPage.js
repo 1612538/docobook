@@ -6,7 +6,7 @@ import Comment from "./Comment";
 import Tool from "./Tool";
 
 const MainPage = () => {
-  const { chapter, first, last } = useContext(Context).state;
+  const { chapter, chapters } = useContext(Context).state;
   return (
     <Container fluid className={styles.mainContainer}>
       {chapter ? (
@@ -48,7 +48,7 @@ const MainPage = () => {
             </Row>
           </Container>
           <Container fluid className={styles.tool}>
-            <Tool chapter={chapter} previous={first} next={last}></Tool>
+            <Tool chapter={chapter} chapters={chapters}></Tool>
           </Container>
         </>
       ) : undefined}
