@@ -6,14 +6,29 @@ import { getAllByKeyword as getBooks } from "../../Services/Books";
 
 const SearchHeader = ({ keyword }) => {
   const [books, setBooks] = useState(null);
+  const [tmp, setTmp] = useState([]);
+  const [root, setRoot] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       const res = await getBooks(keyword);
+      setTmp([...res]);
       setBooks([...res]);
+      console.log("data fetch");
     };
-    if (keyword.length < 3) {
-      setBooks(null);
-    } else fetchData();
+    console.log(keyword.slice(0, 3) + " " + root);
+    if (keyword.length === 3) {
+      if (keyword !== root) {
+        fetchData();
+        setRoot(keyword);
+      } else setBooks([...tmp]);
+    } else if (keyword.length > 3 && keyword.slice(0, 3) === root)
+      setBooks([
+        ...tmp.filter(
+          (ele) =>
+            ele.name.toLowerCase().includes(keyword.toLowerCase()) === true
+        ),
+      ]);
+    else setBooks(null);
   }, [keyword]);
   return (
     <Fade in={keyword.length > 0 ? true : false}>

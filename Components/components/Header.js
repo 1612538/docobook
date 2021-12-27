@@ -178,7 +178,7 @@ const Header = () => {
                   <input
                     placeholder="Tìm kiếm..."
                     onChange={(e) => {
-                      setKeyword(e.target.value);
+                      if (e.target.value.length > 2) setKeyword(e.target.value);
                     }}
                     className={styles.search}
                   ></input>
