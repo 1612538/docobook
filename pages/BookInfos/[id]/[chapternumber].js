@@ -3,7 +3,7 @@ import { Context } from "../../../Context/BookInfosContext";
 import { getOne, getByBook } from "../../../Services/BookChapters";
 import BookChapter from "../../../Components/BookChapter";
 
-const ChapterNumber = ({ chapter, first, last }) => {
+const ChapterNumber = ({ chapter }) => {
   const context = useContext(Context);
   useEffect(() => {
     const fetchData = async () => {
@@ -12,6 +12,7 @@ const ChapterNumber = ({ chapter, first, last }) => {
     };
     context.handle.handleChapter(chapter);
     fetchData();
+    return () => context.handle.handleChapters(null);
   }, []);
   return <BookChapter />;
 };

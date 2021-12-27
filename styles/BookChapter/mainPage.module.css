@@ -4,6 +4,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
+  padding: 0;
 }
 .myContainer {
   margin: 3rem auto;
@@ -11,4 +12,63 @@
 }
 .textStyle {
   white-space: pre-wrap;
+}
+
+.listChapter {
+  position: fixed;
+  height: 100vh;
+  width: 23%;
+  background-color: white;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+  transition: 0.8s;
+}
+
+.header {
+  background-color: #8d3e85;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  position: relative;
+}
+
+.listItem {
+  padding: 1rem;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
+  margin: 0;
+}
+
+.listItem:hover {
+  padding-left: 1.2rem;
+  background-color: #eea9e7;
+}
+
+.image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 80px;
+  max-width: 60px !important;
+}
+
+.closeButton {
+  position: absolute;
+  width: 40px;
+  right: 0px;
+  top: 5px;
+}
+
+.closeButton:active {
+  width: 36px;
+  right: 2px;
+  top: 5px;
+  color: #eebae9;
+}
+
+@media screen and (max-width: 768px) {
+  .listChapter {
+    width: 85%;
+  }
 }

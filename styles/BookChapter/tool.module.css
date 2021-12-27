@@ -22,6 +22,10 @@
   background-color: #b4aee8;
   border-bottom: 1px solid #93329e;
 }
+.iconFormat:active {
+  background-color: #928ebd;
+}
+
 .disabled {
   background-color: #cec9fc;
   color: #666;

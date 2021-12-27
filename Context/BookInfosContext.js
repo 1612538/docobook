@@ -8,7 +8,7 @@ export const Provider = ({ children }) => {
     setBook(Book);
   };
   const handleChapters = (Chapters) => {
-    setChapters([...Chapters]);
+    setChapters(Chapters ? [...Chapters] : null);
   };
   const handleChapter = (Chapter) => {
     setChapter(Chapter);

@@ -1,14 +1,22 @@
 import { Container, Col, Row } from "react-bootstrap";
 import styles from "../../../styles/BookChapter/mainPage.module.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../../../Context/BookInfosContext";
 import Comment from "./Comment";
 import Tool from "./Tool";
+import Menu from "./Menu";
 
 const MainPage = () => {
   const { chapter, chapters } = useContext(Context).state;
+  const [show, setShow] = useState(false);
   return (
     <Container fluid className={styles.mainContainer}>
+      <Menu
+        chapter={chapter}
+        chapters={chapters}
+        show={show}
+        setShow={setShow}
+      ></Menu>
       {chapter ? (
         <>
           <Container fluid className={styles.myContainer}>
@@ -32,7 +40,7 @@ const MainPage = () => {
               </Col>
             </Row>
             <Row className="justify-content-center">
-              <Col xs={10} md={8}>
+              <Col sm={11} md={8}>
                 <div
                   className={styles.textStyle}
                   dangerouslySetInnerHTML={{
@@ -48,7 +56,12 @@ const MainPage = () => {
             </Row>
           </Container>
           <Container fluid className={styles.tool}>
-            <Tool chapter={chapter} chapters={chapters}></Tool>
+            <Tool
+              chapter={chapter}
+              chapters={chapters}
+              setShow={setShow}
+              show={show}
+            ></Tool>
           </Container>
         </>
       ) : undefined}

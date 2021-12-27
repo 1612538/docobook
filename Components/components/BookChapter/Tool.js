@@ -11,10 +11,11 @@ import {
   faBookmark,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Tool = ({ chapter, chapters }) => {
+const Tool = ({ chapter, chapters, setShow, show }) => {
   return (
     <Container fluid className={styles.mainBox}>
-      {chapters.length > 0 &&
+      {chapters &&
+      chapters.length > 0 &&
       chapter.chapternumber !== chapters[0].chapternumber ? (
         <div className={styles.iconFormat}>
           <Link
@@ -44,7 +45,8 @@ const Tool = ({ chapter, chapters }) => {
           </div>
         </Link>
       </div>
-      {chapters.length > 0 &&
+      {chapters &&
+      chapters.length > 0 &&
       chapter.chapternumber !== chapters[chapters.length - 1].chapternumber ? (
         <div className={styles.iconFormat}>
           <Link
@@ -77,7 +79,13 @@ const Tool = ({ chapter, chapters }) => {
           <FontAwesomeIcon icon={faBookmark} />
         </div>
       </div>
-      <div className={styles.iconFormat} style={{ border: 0 }}>
+      <div
+        className={styles.iconFormat}
+        onClick={() => {
+          setShow(!show);
+        }}
+        style={{ border: 0 }}
+      >
         <div className={styles.iconSize}>
           <FontAwesomeIcon icon={faList} />
         </div>
