@@ -21,12 +21,21 @@ const MainPage = ({ category }) => {
       <Row>
         <Col xs={12} md={12} lg={9}>
           <Row className="justify-content-center align-items-center">
-            {books && books.length > 0 ? (
-              books.map((item, key) => (
-                <Col xs={6} md={3} lg={2} key={key}>
-                  <BookCard Book={item}></BookCard>
-                </Col>
-              ))
+            {books ? (
+              books.length > 0 ? (
+                books.map((item, key) => (
+                  <Col xs={6} md={3} lg={2} key={key}>
+                    <BookCard Book={item}></BookCard>
+                  </Col>
+                ))
+              ) : (
+                <Row
+                  className="m-0 justify-content-center align-items-center"
+                  style={{ height: 100 }}
+                >
+                  Đang cập nhật thêm...
+                </Row>
+              )
             ) : (
               <Row
                 className="m-0 justify-content-center align-items-center"

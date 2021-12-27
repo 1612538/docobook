@@ -10,25 +10,38 @@ const SearchHeader = ({ keyword }) => {
   const [root, setRoot] = useState("");
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getBooks(keyword);
+      const res = await getBooks(keyword.slice(0, 3));
       setTmp([...res]);
-      setBooks([...res]);
-      console.log("data fetch");
-    };
-    console.log(keyword.slice(0, 3) + " " + root);
-    if (keyword.length === 3) {
-      if (keyword !== root) {
-        fetchData();
-        setRoot(keyword);
-      } else setBooks([...tmp]);
-    } else if (keyword.length > 3 && keyword.slice(0, 3) === root)
       setBooks([
-        ...tmp.filter(
+        ...res.filter(
           (ele) =>
             ele.name.toLowerCase().includes(keyword.toLowerCase()) === true
         ),
       ]);
-    else setBooks(null);
+    };
+    if (keyword.length >= 3) {
+      if (keyword.slice(0, 3) !== root) {
+        setBooks(null);
+        setTmp([]);
+        fetchData();
+        setRoot(keyword.slice(0, 3));
+      }
+      if (keyword.slice(0, 3) === root) {
+        setBooks(
+          tmp.length > 0
+            ? [
+                ...tmp.filter(
+                  (ele) =>
+                    ele.name.toLowerCase().includes(keyword.toLowerCase()) ===
+                    true
+                ),
+              ]
+            : null
+        );
+      }
+    } else {
+      setBooks(null);
+    }
   }, [keyword]);
   return (
     <Fade in={keyword.length > 0 ? true : false}>

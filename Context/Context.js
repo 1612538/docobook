@@ -13,7 +13,7 @@ export const Provider = ({ children }) => {
     setCountries([...countries]);
   };
   const handleBooks = (Books) => {
-    setBooks([...Books]);
+    setBooks(Books ? [...Books] : null);
   };
   const handleChapters = (chapters) => {
     setChapters([...chapters]);

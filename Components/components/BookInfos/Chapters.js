@@ -7,9 +7,9 @@ const Chapters = () => {
   const { chapters } = useContext(Context).state;
   return (
     <Container fluid className={styles.myContainer}>
-      {chapters.length > 0 ? (
-        <Container fluid>
-          <h5>Danh sách các chương</h5>
+      <Container fluid>
+        <h5>Danh sách các chương</h5>
+        {chapters.length > 0 ? (
           <Container fluid className={styles.listContainer}>
             {chapters.map((item, key) => (
               <Row className={styles.listItem} key={key}>
@@ -18,8 +18,12 @@ const Chapters = () => {
               </Row>
             ))}
           </Container>
-        </Container>
-      ) : undefined}
+        ) : (
+          <Container fluid className={styles.listContainer}>
+            <Row>Đang cập nhật...</Row>
+          </Container>
+        )}
+      </Container>
     </Container>
   );
 };

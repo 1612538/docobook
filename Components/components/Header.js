@@ -3,6 +3,7 @@ import styles from "../../styles/header.module.css";
 import { Container, Row, Col, Button, Fade } from "react-bootstrap";
 import { Context } from "../../Context/Context";
 import SearchHeader from "./SearchHeader";
+import Link from "next/link";
 
 const Header = () => {
   const [space, setSpace] = useState({ top: 0 });
@@ -34,7 +35,7 @@ const Header = () => {
           <Col sm={5} md="auto">
             <Button
               className={`${styles.navItem} ${styles.navItemActive} shadow-none`}
-              href="#"
+              href="/"
             >
               Trang chủ
             </Button>
@@ -76,13 +77,13 @@ const Header = () => {
                                   className="justify-content-center"
                                   key={key2}
                                 >
-                                  <div
-                                    className={styles.menuItem}
-                                    href="#"
-                                    className={styles.menuItem}
+                                  <Link
+                                    href={"/Categories/" + item2.id.toString()}
                                   >
-                                    {item2.name}
-                                  </div>
+                                    <div className={styles.menuItem}>
+                                      {item2.name}
+                                    </div>
+                                  </Link>
                                 </Row>
                               ))}
                             </Col>
@@ -131,13 +132,13 @@ const Header = () => {
                                   className="justify-content-center"
                                   key={key2}
                                 >
-                                  <div
-                                    className={styles.menuItem}
-                                    href="#"
-                                    className={styles.menuItem}
+                                  <Link
+                                    href={"/Countries/" + item2.id.toString()}
                                   >
-                                    {item2.name}
-                                  </div>
+                                    <div className={styles.menuItem}>
+                                      {item2.name}
+                                    </div>
+                                  </Link>
                                 </Row>
                               ))}
                             </Col>
@@ -178,7 +179,7 @@ const Header = () => {
                   <input
                     placeholder="Tìm kiếm..."
                     onChange={(e) => {
-                      if (e.target.value.length > 2) setKeyword(e.target.value);
+                      setKeyword(e.target.value);
                     }}
                     className={styles.search}
                   ></input>

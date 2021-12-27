@@ -15,6 +15,9 @@ const BookInfo = ({ categories, countries, category }) => {
     context.handle.handleCategories(categories);
     context.handle.handleCountries(countries);
     fetchData();
+    return () => {
+      context.handle.handleBooks(null);
+    };
   }, []);
   return <BookFilter category={category} />;
 };
@@ -38,10 +41,11 @@ export const getStaticProps = async ({ params }) => {
   let category = null;
   for (let element of categories) {
     category = element.find((ele) => ele.id.toString() === params.id);
-    if (category !== null) break;
+    if (category) break;
   }
   return {
     props: {
+      key: params.id,
       categories,
       countries,
       category,
