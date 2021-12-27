@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Context } from "../../../Context/BookInfosContext";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "../../../styles/BookInfos/bookDetail.module.css";
+import Link from "next/link";
 
 const BookDetail = () => {
   const { book } = useContext(Context).state;
@@ -40,20 +41,24 @@ const BookDetail = () => {
                   <Row className="mt-2">
                     <Row className="align-items-center">
                       <Col xs="auto">Quốc gia: </Col>
-                      <Col
-                        xs="auto"
-                        className={styles.category}
-                        style={{ fontWeight: "bold" }}
-                      >
-                        {book.country.name}
-                      </Col>
+                      <Link href={"/Countries/" + book.country.id}>
+                        <Col
+                          xs="auto"
+                          className={styles.category}
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {book.country.name}
+                        </Col>
+                      </Link>
                     </Row>
                     <Row className="align-items-center mt-2">
                       <Col xs="auto">Thể loại:</Col>
                       {book.categories.map((item, key) => (
-                        <Col xs="auto" key={key} className={styles.category}>
-                          {item.name}
-                        </Col>
+                        <Link href={"/Categories/" + item.id} key={key}>
+                          <Col xs="auto" className={styles.category}>
+                            {item.name}
+                          </Col>
+                        </Link>
                       ))}
                     </Row>
                   </Row>

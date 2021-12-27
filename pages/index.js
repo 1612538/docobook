@@ -23,6 +23,9 @@ export default function Home({ categories, countries }) {
     context.handle.handleCategories(categories);
     context.handle.handleCountries(countries);
     fetchData();
+    return () => {
+      context.handle.handleBooks(null);
+    };
   }, []);
   return <App />;
 }

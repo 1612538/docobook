@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Context } from "../../../Context/BookInfosContext";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "../../../styles/BookInfos/chapters.module.css";
+import Link from "next/link";
 
 const Chapters = () => {
   const { chapters } = useContext(Context).state;
@@ -9,13 +10,18 @@ const Chapters = () => {
     <Container fluid className={styles.myContainer}>
       <Container fluid>
         <h5>Danh sách các chương</h5>
-        {chapters.length > 0 ? (
+        {chapters && chapters.length > 0 ? (
           <Container fluid className={styles.listContainer}>
             {chapters.map((item, key) => (
-              <Row className={styles.listItem} key={key}>
-                <Col xs="auto">Chương {item.chapternumber}:</Col>
-                <Col>{item.name}</Col>
-              </Row>
+              <Link
+                href={`/BookInfos/${item.bookinfo.id}/${item.chapternumber}`}
+                key={key}
+              >
+                <Row className={styles.listItem}>
+                  <Col xs="auto">Chương {item.chapternumber}:</Col>
+                  <Col>{item.name}</Col>
+                </Row>
+              </Link>
             ))}
           </Container>
         ) : (
