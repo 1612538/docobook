@@ -2,14 +2,24 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import styles from "../styles/SignIn/SignIn.module.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLock,
+  faCheckCircle,
+  faTimesCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { LogIn } from "../Services/Auth";
+import Alert from "react-bootstrap/Alert";
+import { useRouter } from "next/router";
 
 const SignIn = () => {
+  const router = useRouter();
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(null);
   const [errorEmailText, setErrorEmailText] = useState("");
-
-  const handleSubmit = (event) => {
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
+  const handleSubmit = async (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -17,6 +27,19 @@ const SignIn = () => {
     }
     setValidated(true);
     if (errorEmailText) return;
+    event.preventDefault();
+    const res = await LogIn({ email, password });
+    if (res === null) {
+      setFail(true);
+      return;
+    } else {
+      localStorage.setItem("user", JSON.stringify(res.user));
+      localStorage.setItem("accessToken", res.jwt);
+      setSuccess(true);
+      setTimeout(() => {
+        router.push("/");
+      }, 1500);
+    }
   };
   const handleEmail = (e) => {
     let re = /.+@.+\.[A-Za-z]+$/;
@@ -26,6 +49,9 @@ const SignIn = () => {
     } else {
       setErrorEmailText("Email không hợp lệ");
     }
+  };
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
   };
   return (
     <Container fluid className={styles.root}>
@@ -89,6 +115,7 @@ const SignIn = () => {
                       type="password"
                       className={styles.formFormat}
                       placeholder="Nhập mật khẩu.."
+                      onChange={handlePassword}
                       required
                     />
                     <Form.Control.Feedback type="invalid">
@@ -123,6 +150,40 @@ const SignIn = () => {
           </Container>
         </Container>
       </Col>
+      <Alert
+        show={success}
+        dismissible
+        variant="success"
+        className={styles.alert}
+        onClose={() => {
+          setSuccess(false);
+        }}
+      >
+        <Row className="justify-content-center align-items-center">
+          <FontAwesomeIcon
+            icon={faCheckCircle}
+            style={{ width: 50, height: 50 }}
+          ></FontAwesomeIcon>
+          Đăng nhập thành công. Đang điều hướng..
+        </Row>
+      </Alert>
+      <Alert
+        show={fail}
+        onClose={() => {
+          setFail(false);
+        }}
+        dismissible
+        variant="danger"
+        className={styles.alert}
+      >
+        <Row className="justify-content-center align-items-center">
+          <FontAwesomeIcon
+            icon={faTimesCircle}
+            style={{ width: 50, height: 50 }}
+          ></FontAwesomeIcon>
+          Sai tên đăng nhập hoặc mật khẩu
+        </Row>
+      </Alert>
     </Container>
   );
 };

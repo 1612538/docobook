@@ -13,12 +13,14 @@ const Header = () => {
   const [show2, setShow2] = useState(false);
   const [active2, setActive2] = useState(false);
   const [keyword, setKeyword] = useState("");
+  const [user, setUser] = useState(null);
   useEffect(() => {
     window.addEventListener("scroll", (event) => {
       let value = window.scrollY;
       if (value <= 125) setSpace({ top: 0 - value });
       else if (space.top < 125) setSpace({ top: -125 });
     });
+    if (localStorage) setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
   return (
     <Container fluid style={{ padding: 0 }}>
@@ -191,22 +193,55 @@ const Header = () => {
             </Row>
           </Col>
           <Col sm="auto" md={3} className="my-2">
-            <Row
-              className="justify-content-end align-items-center h-100 text-white"
-              style={{ cursor: "default" }}
-            >
-              <Link href="/SignIn">
-                <Col xs="auto" style={{ cursor: "pointer" }}>
-                  Đăng nhập
+            {user ? (
+              <Row
+                className="justify-content-end align-items-center h-100 text-white"
+                style={{ cursor: "default" }}
+              >
+                <Col xs="auto">
+                  <Row className="justify-content-end align-items-center h-100 text-white">
+                    <Col xs="auto" className="px-0">
+                      Xin chào,
+                    </Col>
+                    <Col
+                      xs="auto"
+                      className="px-1"
+                      style={{ textDecoration: "underline" }}
+                    >
+                      {user.username}
+                    </Col>
+                  </Row>
                 </Col>
-              </Link>
-              /
-              <Link href="/SignUp">
-                <Col xs="auto" style={{ cursor: "pointer" }}>
-                  Đăng ký
+                <Col
+                  xs="auto"
+                  onClick={() => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("accessToken");
+                    setUser(null);
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  Đăng xuất
                 </Col>
-              </Link>
-            </Row>
+              </Row>
+            ) : (
+              <Row
+                className="justify-content-end align-items-center h-100 text-white"
+                style={{ cursor: "default" }}
+              >
+                <Link href="/SignIn">
+                  <Col xs="auto" style={{ cursor: "pointer" }}>
+                    Đăng nhập
+                  </Col>
+                </Link>
+                /
+                <Link href="/SignUp">
+                  <Col xs="auto" style={{ cursor: "pointer" }}>
+                    Đăng ký
+                  </Col>
+                </Link>
+              </Row>
+            )}
           </Col>
         </Row>
       </Container>
