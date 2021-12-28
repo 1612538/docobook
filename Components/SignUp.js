@@ -1,22 +1,41 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import styles from "../styles/SignUp/SignUp.module.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLock,
+  faCheckCircle,
+  faTimesCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { Register } from "../Services/Auth";
 
 const SignUp = () => {
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [fullname, setFullname] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [errorEmailText, setErrorEmailText] = useState("");
-
-  const handleSubmit = (event) => {
+  const [errorPassword2, setErrorPassword2] = useState("");
+  const [fail, setFail] = useState(false);
+  const handleSubmit = async (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
     setValidated(true);
-    if (errorEmailText) return;
+    if (errorEmailText || errorPassword2) return;
+    const res = await Register({ email, username, password, fullname });
+    if (res === null) {
+      setFail(true);
+      return;
+    }
+    setSuccess(true);
+    setTimeout(() => {
+      router.push("/SignIn");
+    }, 1500);
   };
   const handleEmail = (e) => {
     let re = /.+@.+\.[A-Za-z]+$/;
@@ -89,8 +108,11 @@ const SignUp = () => {
                       type="password"
                       className={styles.formFormat}
                       placeholder="Nhập mật khẩu.."
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                       required
-                    />
+                    />{" "}
                     <Form.Control.Feedback type="invalid">
                       Bạn chưa nhập mật khẩu
                     </Form.Control.Feedback>
@@ -111,11 +133,22 @@ const SignUp = () => {
                       type="password"
                       className={styles.formFormat}
                       placeholder="Nhập mật khẩu.."
+                      onChange={(e) => {
+                        if (e.target.value !== password)
+                          setErrorPassword2("Mật khẩu không trùng khớp");
+                        else setErrorPassword2(null);
+                      }}
                       required
                     />
-                    <Form.Control.Feedback type="invalid">
-                      Bạn chưa nhập lại mật khẩu
-                    </Form.Control.Feedback>
+                    {errorPassword2 ? (
+                      <Row className="text-danger p-1 m-0">
+                        {errorPassword2}
+                      </Row>
+                    ) : (
+                      <Form.Control.Feedback type="invalid">
+                        Bạn chưa nhập lại mật khẩu
+                      </Form.Control.Feedback>
+                    )}
                   </Col>
                 </Form.Group>
               </Col>
@@ -133,6 +166,9 @@ const SignUp = () => {
                       type="text"
                       className={styles.formFormat}
                       placeholder="Nhập username.."
+                      onChange={(e) => {
+                        setUsername(e.target.value);
+                      }}
                       required
                     />
                     <Form.Control.Feedback type="invalid">
@@ -155,6 +191,9 @@ const SignUp = () => {
                       type="text"
                       className={styles.formFormat}
                       placeholder="Nhập họ tên.."
+                      onChange={(e) => {
+                        setFullname(e.target.value);
+                      }}
                       required
                     />
                     <Form.Control.Feedback type="invalid">
@@ -179,6 +218,40 @@ const SignUp = () => {
           </Container>
         </Container>
       </Col>
+      <Alert
+        show={success}
+        dismissible
+        variant="success"
+        className={styles.alert}
+        onClose={() => {
+          setSuccess(false);
+        }}
+      >
+        <Row className="justify-content-center align-items-center">
+          <FontAwesomeIcon
+            icon={faCheckCircle}
+            style={{ width: 50, height: 50 }}
+          ></FontAwesomeIcon>
+          Đăng ký thành công. Đang điều hướng..
+        </Row>
+      </Alert>
+      <Alert
+        show={fail}
+        onClose={() => {
+          setFail(false);
+        }}
+        dismissible
+        variant="danger"
+        className={styles.alert}
+      >
+        <Row className="justify-content-center align-items-center">
+          <FontAwesomeIcon
+            icon={faTimesCircle}
+            style={{ width: 50, height: 50 }}
+          ></FontAwesomeIcon>
+          Sai tên đăng nhập hoặc mật khẩu
+        </Row>
+      </Alert>
     </Container>
   );
 };

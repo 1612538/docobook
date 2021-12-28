@@ -16,10 +16,10 @@ export const Provider = ({ children }) => {
     setBooks(Books ? [...Books] : null);
   };
   const handleChapters = (chapters) => {
-    setChapters([...chapters]);
+    setChapters(chapters ? [...chapters] : null);
   };
   const handleBooksByViews = (BooksByViews) => {
-    setBooksByViews([...BooksByViews]);
+    setBooksByViews(BooksByViews ? [...BooksByViews] : null);
   };
   const ContextProps = {
     state: {

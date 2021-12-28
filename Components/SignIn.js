@@ -33,8 +33,6 @@ const SignIn = () => {
       setFail(true);
       return;
     } else {
-      localStorage.setItem("user", JSON.stringify(res.user));
-      localStorage.setItem("accessToken", res.jwt);
       setSuccess(true);
       setTimeout(() => {
         router.push("/");
@@ -164,7 +162,7 @@ const SignIn = () => {
             icon={faCheckCircle}
             style={{ width: 50, height: 50 }}
           ></FontAwesomeIcon>
-          Đăng nhập thành công. Đang điều hướng..
+          Đăng ký thành công. Đang điều hướng..
         </Row>
       </Alert>
       <Alert
@@ -181,7 +179,7 @@ const SignIn = () => {
             icon={faTimesCircle}
             style={{ width: 50, height: 50 }}
           ></FontAwesomeIcon>
-          Sai tên đăng nhập hoặc mật khẩu
+          Username hoặc Email đã được sử dụng
         </Row>
       </Alert>
     </Container>
