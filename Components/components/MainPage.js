@@ -23,6 +23,7 @@ const MainPage = () => {
         position += length;
       }
     }
+    setActive(0);
     setBooksMostView([...array]);
   }, [ListMostView, length]);
   useEffect(() => {
@@ -47,7 +48,7 @@ const MainPage = () => {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col xs={11} md={9}>
+        <Col xs={11} md={10} lg={9}>
           <Row className={styles.customRow + " justify-content-center"}>
             <Button
               className={
