@@ -203,12 +203,18 @@ const Header = () => {
                     <Col xs="auto" className="px-0">
                       Xin chào,
                     </Col>
-                    <Col
-                      xs="auto"
-                      className="px-1"
-                      style={{ textDecoration: "underline" }}
-                    >
-                      {user.username}
+                    <Col xs="auto" className="px-1">
+                      <Link href="/UserProfile/2">
+                        <div
+                          className="text-white"
+                          style={{
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          {user.username}
+                        </div>
+                      </Link>
                     </Col>
                   </Row>
                 </Col>
