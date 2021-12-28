@@ -90,11 +90,13 @@
 }
 
 .nextStyle {
-  right: -45px;
+  right: -10px;
+  z-index: 3;
 }
 
 .previousStyle {
-  left: -45px;
+  left: -10px;
+  z-index: 3;
 }
 
 .customRow {

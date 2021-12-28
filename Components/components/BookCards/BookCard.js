@@ -9,7 +9,7 @@ const BookCard = ({ Book }) => {
   const myRef = useRef(null);
   useEffect(() => {
     const updateWindowDimensions = () => {
-      if (myRef)
+      if (myRef.current)
         if (
           myRef.current.getBoundingClientRect().right + 352 >
           window.innerWidth

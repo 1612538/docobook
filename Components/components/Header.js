@@ -175,7 +175,7 @@ const Header = () => {
                 <Col xs={1} sm="auto" md="auto">
                   <i className={"bi bi-search "}></i>
                 </Col>
-                <Col xs={10} sm={10} md={10}>
+                <Col xs={10}>
                   <input
                     placeholder="Tìm kiếm..."
                     onChange={(e) => {
@@ -188,6 +188,24 @@ const Header = () => {
             </Container>
             <Row>
               <SearchHeader keyword={keyword}></SearchHeader>
+            </Row>
+          </Col>
+          <Col sm="auto" md={3} className="my-2">
+            <Row
+              className="justify-content-end align-items-center h-100 text-white"
+              style={{ cursor: "default" }}
+            >
+              <Link href="/SignIn">
+                <Col xs="auto" style={{ cursor: "pointer" }}>
+                  Đăng nhập
+                </Col>
+              </Link>
+              /
+              <Link href="/SignUp">
+                <Col xs="auto" style={{ cursor: "pointer" }}>
+                  Đăng ký
+                </Col>
+              </Link>
             </Row>
           </Col>
         </Row>
