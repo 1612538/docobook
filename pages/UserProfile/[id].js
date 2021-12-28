@@ -14,10 +14,12 @@ export default function Home({ categories, countries, user }) {
     const fetchData = async () => {
       const listBooks = await getAllByUploader(user.id);
       context.handle.handleBooks(listBooks);
+      const categories = await ParseGetAll();
+      context.handle.handleCategories(categories);
+      const countries = await ParseGetAll2();
+      context.handle.handleCountries(countries);
     };
     userContext.handle.handleUser(user);
-    context.handle.handleCategories(categories);
-    context.handle.handleCountries(countries);
     fetchData();
   }, []);
   return <UserProfile />;
@@ -37,13 +39,9 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const categories = await ParseGetAll();
-  const countries = await ParseGetAll2();
   const user = await getOne(params.id);
   return {
     props: {
-      categories,
-      countries,
       user,
     },
   };

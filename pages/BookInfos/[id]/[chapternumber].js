@@ -2,8 +2,13 @@ import { useEffect, useContext } from "react";
 import { Context } from "../../../Context/BookInfosContext";
 import { getOne, getByBook } from "../../../Services/BookChapters";
 import BookChapter from "../../../Components/BookChapter";
+import { useRouter } from "next/router";
 
 const ChapterNumber = ({ chapter }) => {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
   const context = useContext(Context);
   useEffect(() => {
     const fetchData = async () => {
@@ -18,18 +23,13 @@ const ChapterNumber = ({ chapter }) => {
 };
 
 export const getStaticPaths = async () => {
-  const url = "http://localhost:1337/";
-  const res = await fetch(url + "BookChapters");
-  const chapters = await res.json();
-  const paths = chapters.map((chapter) => ({
-    params: {
-      id: chapter.bookinfo.id.toString(),
-      chapternumber: chapter.chapternumber.toString(),
-    },
-  }));
+  const paths = [
+    { params: { id: "1", chapternumber: "1" } },
+    { params: { id: "2", chapternumber: "1" } },
+  ];
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 

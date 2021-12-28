@@ -44,7 +44,7 @@ export const getOne = async (idbook, chapternumber) => {
 export const getByBook = async (id) => {
   try {
     const res = await axios.get(
-      url + "BookChapters?bookinfo.id=" + id.toString()
+      url + "BookChapters?_sort=chapternumber:ASC&bookinfo.id=" + id.toString()
     );
     return await res.data;
   } catch (err) {

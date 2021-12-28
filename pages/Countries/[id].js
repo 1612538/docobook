@@ -2,18 +2,31 @@ import { useEffect, useContext } from "react";
 import BookFilter from "../../Components/BookFilter";
 import { Context } from "../../Context/Context";
 import { ParseGetAll } from "../../Services/SubCategories";
-import { ParseGetAll as ParseGetAll2 } from "../../Services/Countries";
+import { ParseGetAll as ParseGetAll2, getOne } from "../../Services/Countries";
 import { getAllByCountry } from "../../Services/Books";
 
-const BookInfo = ({ categories, countries, country }) => {
+const BookInfo = ({ country }) => {
   const context = useContext(Context);
   useEffect(() => {
     const fetchData = async () => {
       const Books = await getAllByCountry(country.id.toString());
       context.handle.handleBooks(Books);
+      if (
+        context.state.categories === null ||
+        context.state.categories.length === 0
+      ) {
+        const categories = await ParseGetAll();
+        context.handle.handleCategories(categories);
+      }
+      if (
+        context.state.countries === null ||
+        context.state.countries.length === 0
+      ) {
+        const countries = await ParseGetAll2();
+        context.handle.handleCountries(countries);
+      }
     };
-    context.handle.handleCategories(categories);
-    context.handle.handleCountries(countries);
+
     fetchData();
     return () => {
       context.handle.handleBooks(null);
@@ -36,18 +49,10 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const categories = await ParseGetAll();
-  const countries = await ParseGetAll2();
-  let country = null;
-  for (let element of countries) {
-    country = element.find((ele) => ele.id.toString() === params.id);
-    if (country) break;
-  }
+  const country = await getOne(params.id);
   return {
     props: {
       key: params.id,
-      categories,
-      countries,
       country,
     },
   };
