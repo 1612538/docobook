@@ -6,8 +6,14 @@ import { ParseGetAll } from "../../Services/SubCategories";
 import { ParseGetAll as ParseGetAll2 } from "../../Services/Countries";
 import { getAllByUploader } from "../../Services/Books";
 import { getOne } from "../../Services/Users";
+import { useRouter } from "next/router";
+import Loading from "../../Components/Loading";
 
-export default function Home({ categories, countries, user }) {
+export default function Home({ user }) {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <Loading></Loading>;
+  }
   const context = useContext(Context);
   const userContext = useContext(UserContext);
   useEffect(() => {
@@ -26,15 +32,10 @@ export default function Home({ categories, countries, user }) {
 }
 
 export const getStaticPaths = async () => {
-  const url = "http://localhost:1337/";
-  const res = await fetch(url + "users");
-  const users = await res.json();
-  const paths = users.map((user) => ({
-    params: { id: user.id.toString() },
-  }));
+  const paths = [{ params: { id: "1" } }];
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 

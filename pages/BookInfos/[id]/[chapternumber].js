@@ -3,11 +3,12 @@ import { Context } from "../../../Context/BookInfosContext";
 import { getOne, getByBook } from "../../../Services/BookChapters";
 import BookChapter from "../../../Components/BookChapter";
 import { useRouter } from "next/router";
+import Loading from "../../../Components/Loading";
 
 const ChapterNumber = ({ chapter }) => {
   const router = useRouter();
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
   const context = useContext(Context);
   useEffect(() => {
@@ -23,10 +24,7 @@ const ChapterNumber = ({ chapter }) => {
 };
 
 export const getStaticPaths = async () => {
-  const paths = [
-    { params: { id: "1", chapternumber: "1" } },
-    { params: { id: "2", chapternumber: "1" } },
-  ];
+  const paths = [{ params: { id: "1", chapternumber: "1" } }];
   return {
     paths,
     fallback: true,

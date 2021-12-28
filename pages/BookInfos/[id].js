@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 const BookInfo = ({ BookInfo }) => {
   const router = useRouter();
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
   const context = useContext(Cont);
   const context2 = useContext(Context);
@@ -42,7 +42,7 @@ const BookInfo = ({ BookInfo }) => {
 };
 
 export const getStaticPaths = async () => {
-  const paths = [{ params: { id: "1" } }, { params: { id: "2" } }];
+  const paths = [{ params: { id: "0" } }];
   return {
     paths,
     fallback: true,
