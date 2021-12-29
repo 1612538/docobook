@@ -8,8 +8,10 @@ import {
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { Register } from "../Services/Auth";
+import { useRouter } from "next/router";
 
 const SignUp = () => {
+  const router = useRouter();
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState(null);
@@ -26,6 +28,7 @@ const SignUp = () => {
       event.stopPropagation();
     }
     setValidated(true);
+    event.preventDefault();
     if (errorEmailText || errorPassword2) return;
     const res = await Register({ email, username, password, fullname });
     if (res === null) {
@@ -249,7 +252,7 @@ const SignUp = () => {
             icon={faTimesCircle}
             style={{ width: 50, height: 50 }}
           ></FontAwesomeIcon>
-          Sai tên đăng nhập hoặc mật khẩu
+          Username hoặc Email đã được sử dụng
         </Row>
       </Alert>
     </Container>
