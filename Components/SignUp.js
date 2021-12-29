@@ -33,6 +33,9 @@ const SignUp = () => {
     const res = await Register({ email, username, password, fullname });
     if (res === null) {
       setFail(true);
+      setTimeout(() => {
+        setFail(false);
+      }, 2000);
       return;
     }
     setSuccess(true);

@@ -4,8 +4,10 @@ import { Container, Row, Col, Button, Fade } from "react-bootstrap";
 import { Context } from "../../Context/Context";
 import SearchHeader from "./SearchHeader";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Header = () => {
+  const router = useRouter();
   const [space, setSpace] = useState({ top: 0 });
   const { categories, countries } = useContext(Context).state;
   const [show, setShow] = useState(false);
@@ -15,12 +17,14 @@ const Header = () => {
   const [keyword, setKeyword] = useState("");
   const [user, setUser] = useState(null);
   useEffect(() => {
-    window.addEventListener("scroll", (event) => {
+    const scrollEvent = () => {
       let value = window.scrollY;
       if (value <= 125) setSpace({ top: 0 - value });
       else if (space.top < 125) setSpace({ top: -125 });
-    });
+    };
+    window.addEventListener("scroll", scrollEvent);
     if (localStorage) setUser(JSON.parse(localStorage.getItem("user")));
+    return () => window.removeEventListener("scroll", scrollEvent);
   }, []);
   return (
     <Container fluid style={{ padding: 0 }}>
@@ -204,7 +208,7 @@ const Header = () => {
                       Xin chào,
                     </Col>
                     <Col xs="auto" className="px-1">
-                      <Link href="/UserProfile/2">
+                      <Link href="/UserProfile">
                         <div
                           className="text-white"
                           style={{
@@ -224,6 +228,7 @@ const Header = () => {
                     localStorage.removeItem("user");
                     localStorage.removeItem("accessToken");
                     setUser(null);
+                    router.push("/");
                   }}
                   style={{ cursor: "pointer" }}
                 >

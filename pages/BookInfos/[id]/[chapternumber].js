@@ -1,6 +1,4 @@
-import { useEffect, useContext } from "react";
-import { Context } from "../../../Context/BookInfosContext";
-import { getOne, getByBook } from "../../../Services/BookChapters";
+import { getOne } from "../../../Services/BookChapters";
 import BookChapter from "../../../Components/BookChapter";
 import { useRouter } from "next/router";
 import Loading from "../../../Components/Loading";
@@ -10,17 +8,7 @@ const ChapterNumber = ({ chapter }) => {
   if (router.isFallback) {
     return <Loading></Loading>;
   }
-  const context = useContext(Context);
-  useEffect(() => {
-    const fetchData = async () => {
-      const chapters = await getByBook(chapter.bookinfo.id.toString());
-      context.handle.handleChapters(chapters);
-    };
-    context.handle.handleChapter(chapter);
-    fetchData();
-    return () => context.handle.handleChapters(null);
-  }, []);
-  return <BookChapter />;
+  return <BookChapter chapter={chapter} />;
 };
 
 export const getStaticPaths = async () => {

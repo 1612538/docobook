@@ -3,8 +3,8 @@ export const Context = createContext();
 export const Provider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [countries, setCountries] = useState([]);
-  const [books, setBooks] = useState([]);
-  const [booksByViews, setBooksByViews] = useState([]);
+  const [books, setBooks] = useState(null);
+  const [booksByViews, setBooksByViews] = useState(null);
   const [chapters, setChapters] = useState([]);
   const handleCategories = (cats) => {
     setCategories([...cats]);
@@ -15,8 +15,8 @@ export const Provider = ({ children }) => {
   const handleBooks = (Books) => {
     setBooks(Books ? [...Books] : null);
   };
-  const handleChapters = (chapters) => {
-    setChapters(chapters ? [...chapters] : null);
+  const handleChapters = (Chapters) => {
+    setChapters(Chapters ? [...Chapters] : null);
   };
   const handleBooksByViews = (BooksByViews) => {
     setBooksByViews(BooksByViews ? [...BooksByViews] : null);

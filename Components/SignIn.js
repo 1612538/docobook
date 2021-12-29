@@ -31,6 +31,9 @@ const SignIn = () => {
     const res = await LogIn({ email, password });
     if (res === null) {
       setFail(true);
+      setTimeout(() => {
+        setFail(false);
+      }, 2000);
       return;
     } else {
       localStorage.setItem("user", JSON.stringify(res.user));

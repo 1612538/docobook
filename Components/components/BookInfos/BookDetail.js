@@ -78,7 +78,7 @@ const BookDetail = () => {
                             styles.cssHeart + " justify-content-center"
                           }
                         >
-                          <i class="bi bi-heart"></i>
+                          <i className="bi bi-heart"></i>
                         </Row>
                         <Row className="justify-content-center w-100">
                           Yêu thích
@@ -90,7 +90,7 @@ const BookDetail = () => {
                         <Row
                           className={styles.cssStar + " justify-content-center"}
                         >
-                          <i class="bi bi-star"></i>
+                          <i className="bi bi-star"></i>
                         </Row>
                         <Row className="justify-content-center w-100">
                           Đánh giá
@@ -102,7 +102,7 @@ const BookDetail = () => {
                         <Row
                           className={styles.cssList + " justify-content-center"}
                         >
-                          <i class="bi bi-list-ul"></i>
+                          <i className="bi bi-list-ul"></i>
                         </Row>
                         <Row className="justify-content-center w-100">
                           Mục lục
@@ -116,7 +116,7 @@ const BookDetail = () => {
                             styles.cssComment + " justify-content-center"
                           }
                         >
-                          <i class="bi bi-chat"></i>
+                          <i className="bi bi-chat"></i>
                         </Row>
                         <Row className="justify-content-center w-100">
                           Bình luận
