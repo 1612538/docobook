@@ -1,0 +1,75 @@
+.mainContainer {
+  min-height: 50rem;
+  background: linear-gradient(180deg, #ffe3fe 0%, #b4aee8 100%);
+  z-index: 2;
+  position: relative;
+  overflow: hidden;
+}
+.myContainer {
+  margin: 3rem auto;
+  width: 80%;
+  border-radius: 5px;
+  background-color: white;
+  min-height: 45rem;
+  padding: 1.5rem;
+}
+
+.imageField {
+  height: 230px;
+  width: 170px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.image {
+  height: 75px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.submitButton {
+  padding: 0.8rem 1.5rem;
+  font-size: 16px;
+  font-family: "Varela Round", sans-serif;
+  text-transform: uppercase;
+  font-weight: 50;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  margin-right: 2rem;
+  background-color: #93329e;
+  color: white;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+.submitButton:hover,
+.submitButton:active,
+.submitButton:focus,
+.submitButtonActive {
+  background-color: #440a67;
+  color: #ffe3fe;
+  outline: none !important;
+  outline-offset: none !important;
+}
+
+.category {
+  background-color: #8d3e85;
+  border-radius: 100px;
+  padding: 2px 10px;
+  margin: 0 5px 3px 5px;
+  color: white;
+}
+
+.x_button {
+  color: white;
+  display: flex;
+  height: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 0;
+}

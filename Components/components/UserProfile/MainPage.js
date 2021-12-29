@@ -16,7 +16,7 @@ const MainPage = () => {
         <User></User>
       </Row>
       {user && user.userRole === 1 ? (
-        <ModMainPage books={books}></ModMainPage>
+        <ModMainPage books={books} user={user}></ModMainPage>
       ) : (
         <UserMainPage books={books}></UserMainPage>
       )}
