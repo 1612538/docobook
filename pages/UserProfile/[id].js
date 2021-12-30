@@ -1,4 +1,4 @@
-import UserProfile from "../../components/UserProfile";
+import UserProfile from "../../Components/UserProfile";
 import { getOne } from "../../Services/Users";
 import { useRouter } from "next/router";
 import Loading from "../../Components/Loading";

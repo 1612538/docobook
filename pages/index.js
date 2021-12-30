@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import App from "../components/App";
+import App from "../Components/App";
 import { Context } from "../Context/Context";
 import { ParseGetAll } from "../Services/SubCategories";
 import { ParseGetAll as ParseGetAll2 } from "../Services/Countries";
