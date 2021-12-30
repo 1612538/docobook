@@ -25,8 +25,7 @@ export const ParseGetAll = async () => {
 export const getOne = async (id) => {
   try {
     const res = await axios.get(url + "countries/" + id);
-    console.log(res.data);
-    return await res.data[0];
+    return await res.data;
   } catch (err) {
     console.log(err);
   }

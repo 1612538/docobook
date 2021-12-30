@@ -1,13 +1,59 @@
 import { useContext, useState } from "react";
-import { Container, Col, Row, Form, Button } from "react-bootstrap";
+import { Container, Col, Row, Form, Button, Alert } from "react-bootstrap";
 import { Context } from "../../../Context/Context";
 import styles from "../../../styles/BookCreate/mainPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimesCircle,
+  faCheckCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { AddBook } from "../../../Services/Books";
 
 const MainPage = () => {
   const { countries, categories } = useContext(Context).state;
   const [listCategories, setList] = useState([]);
+  const [file, setFile] = useState(null);
+  const [name, setName] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [imgURL, setImgURL] = useState(
+    "https://www.pinclipart.com/picdir/big/126-1266771_post-page-to-add-pictures-comments-add-post.png"
+  );
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (file && name && description && country) {
+      setLoading(true);
+      const data = {};
+      data.name = name;
+      data.description = description;
+      data.country = country;
+      data.categories = listCategories;
+      data.uploader = JSON.parse(localStorage.getItem("user"));
+      data.views = 0;
+      data.rate = 0;
+      data.likes = 0;
+      const formData = new FormData();
+      formData.append("data", JSON.stringify(data));
+      formData.append("files.image", file, file.name);
+      const res = await AddBook(formData);
+      setLoading(false);
+      if (res) {
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 1500);
+      } else {
+        setFail(true);
+        setTimeout(() => {
+          setFail(false);
+        }, 1500);
+      }
+    }
+  };
+
   return (
     <Container fluid className={styles.mainContainer}>
       <Container fluid className={styles.myContainer}>
@@ -15,35 +61,57 @@ const MainPage = () => {
           <Col xs={12} lg={3}>
             <Row className="justify-content-center align-items-center">
               <label htmlFor="myInputFile" className={styles.imageField}>
-                <img
-                  src="https://www.pinclipart.com/picdir/big/126-1266771_post-page-to-add-pictures-comments-add-post.png"
-                  className={styles.image}
-                />
+                <img src={imgURL} className={styles.image} />
                 <input
                   type="file"
                   name="myInputFile"
                   id="myInputFile"
                   style={{ display: "none" }}
+                  onChange={(e) => {
+                    setFile(e.target.files[0]);
+                    setImgURL(window.URL.createObjectURL(e.target.files[0]));
+                  }}
+                  required
                   accept="image/*"
                 />
               </label>
             </Row>
             <Row className="justify-content-center align-items-center mt-2">
-              Bìa sách
+              Bìa truyện
             </Row>
           </Col>
           <Col xs={12} lg={9}>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <Row className="mb-3">
                 <Form.Group as={Col} xs={12} controlId="formGridName">
-                  <Form.Label>Tên sách</Form.Label>
-                  <Form.Control type="text" placeholder="Nhập tên sách.." />
+                  <Form.Label>Tên truyện</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Nhập tên truyện.."
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
                 </Form.Group>
               </Row>
               <Row className="mb-3">
                 <Form.Group as={Col} xs={6} controlId="formGridCountry">
                   <Form.Label>Quốc gia</Form.Label>
-                  <Form.Select defaultValue="Chọn..">
+                  <Form.Select
+                    defaultValue="Chọn.."
+                    onChange={(e) => {
+                      if (countries && countries.length > 0)
+                        for (let i of countries) {
+                          const value = i.find(
+                            (ele) => ele.name === e.target.value
+                          );
+                          if (value) {
+                            setCountry(value);
+                            break;
+                          }
+                        }
+                    }}
+                  >
                     {countries && countries.length > 0 ? (
                       countries.map((item, key) =>
                         item.map((item2, key2) => (
@@ -78,13 +146,20 @@ const MainPage = () => {
                       setList([...newList]);
                     }}
                   >
+                    <option>Chọn..</option>
                     {categories && categories.length > 0 ? (
                       categories.map((item, key) =>
-                        item.map((item2, key2) => (
-                          <option key={key2.toString() + " " + key.toString()}>
-                            {item2.name}
-                          </option>
-                        ))
+                        item.map((item2, key2) =>
+                          listCategories.find(
+                            (ele) => ele.name === item2.name
+                          ) ? undefined : (
+                            <option
+                              key={key2.toString() + " " + key.toString()}
+                            >
+                              {item2.name}
+                            </option>
+                          )
+                        )
                       )
                     ) : (
                       <option>Chọn..</option>
@@ -121,14 +196,19 @@ const MainPage = () => {
                   placeholder="Nhập mô tả.."
                   style={{ height: 100 }}
                   onChange={(e) => {
-                    console.log(e.target.value);
+                    setDescription(e.target.value);
                   }}
                 />
               </Form.Group>
-              <Row className="justify-content-end">
+              <Row className="justify-content-end align-items-center">
+                {loading ? (
+                  <Col xs="auto">
+                    <div className="spinner-border" role="status"></div>
+                  </Col>
+                ) : undefined}
                 <Col xs="auto">
                   <Button className={styles.submitButton} type="submit">
-                    Đăng sách
+                    Đăng truyện
                   </Button>
                 </Col>
               </Row>
@@ -136,6 +216,38 @@ const MainPage = () => {
           </Col>
         </Row>
       </Container>
+      <Alert
+        show={success}
+        variant="success"
+        className={styles.alert}
+        onClose={() => {
+          setSuccess(false);
+        }}
+      >
+        <Row className="justify-content-center align-items-center">
+          <FontAwesomeIcon
+            icon={faCheckCircle}
+            style={{ width: 50, height: 50 }}
+          ></FontAwesomeIcon>
+          Thêm truyện thành công!
+        </Row>
+      </Alert>
+      <Alert
+        show={fail}
+        onClose={() => {
+          setFail(false);
+        }}
+        variant="danger"
+        className={styles.alert}
+      >
+        <Row className="justify-content-center align-items-center">
+          <FontAwesomeIcon
+            icon={faTimesCircle}
+            style={{ width: 50, height: 50 }}
+          ></FontAwesomeIcon>
+          Đã xảy ra lỗi!
+        </Row>
+      </Alert>
     </Container>
   );
 };

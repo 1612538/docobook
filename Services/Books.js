@@ -68,7 +68,9 @@ export const getAllByUploader = async (id) => {
 
 export const getAllByCategory = async (id) => {
   try {
-    const res = await axios.get(url + "BookInfos?categories.id_in=" + id);
+    const res = await axios.get(
+      url + "BookInfos?_sort=created_at:DESC&categories.id_in=" + id
+    );
     return await res.data;
   } catch (err) {
     console.log(err);
@@ -77,7 +79,18 @@ export const getAllByCategory = async (id) => {
 
 export const getAllByCountry = async (id) => {
   try {
-    const res = await axios.get(url + "BookInfos?country.id_in=" + id);
+    const res = await axios.get(
+      url + "BookInfos?_sort=created_at:DESC&country.id_in=" + id
+    );
+    return await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const AddBook = async (data) => {
+  try {
+    const res = await axios.post(url + "BookInfos", data);
     return await res.data;
   } catch (err) {
     console.log(err);

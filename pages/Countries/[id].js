@@ -38,9 +38,9 @@ const BookInfo = ({ country }) => {
 export const getStaticPaths = async () => {
   const url = "http://localhost:1337/";
   const res = await fetch(url + "countries");
-  const categories = await res.json();
-  const paths = categories.map((category) => ({
-    params: { id: category.id.toString() },
+  const countries = await res.json();
+  const paths = countries.map((country) => ({
+    params: { id: country.id.toString() },
   }));
   return {
     paths,
