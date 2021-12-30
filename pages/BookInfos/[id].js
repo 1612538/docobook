@@ -1,4 +1,4 @@
-import BookInfos from "../../components/BookInfos";
+import BookInfos from "../../Components/BookInfos";
 
 import { getOne } from "../../Services/Books";
 

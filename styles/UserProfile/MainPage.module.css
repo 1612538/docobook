@@ -32,7 +32,9 @@
   border-radius: 50%;
 }
 
-.addButton {
+.addButton,
+.editButton,
+.listButton {
   padding: 0.8rem 1.5rem;
   font-size: 16px;
   font-family: "Varela Round", sans-serif;
@@ -41,19 +43,88 @@
   border-radius: 5px;
   margin-top: 0.5rem;
   margin-right: 2rem;
-  background-color: #93329e;
-  color: white;
   text-decoration: none;
   border: 0;
   cursor: pointer;
   box-shadow: none !important;
 }
+
+.addButton {
+  background-color: #93329e;
+  color: white;
+}
 .addButton:hover,
 .addButton:active,
-.addButton:focus,
-.addButtonActive {
+.addButton:focus {
   background-color: #440a67;
   color: #ffe3fe;
+  outline: none !important;
+  outline-offset: none !important;
+}
+
+.editButton {
+  background-color: #89cff0;
+  color: #191970;
+  border: 1px solid #0047ab;
+}
+.editButton:hover,
+.editButton:active,
+.editButton:focus {
+  background-color: #6495ed;
+  color: #191970;
+  outline: none !important;
+  outline-offset: none !important;
+}
+
+.listButton {
+  background-color: #fdda0d;
+  color: black;
+  border: 1px solid #e49b0f;
+}
+.listButton:hover,
+.listButton:active,
+.listButton:focus {
+  background-color: #e4d00a;
+  color: black;
+  border: 1px solid #e49b0f;
+  outline: none !important;
+  outline-offset: none !important;
+}
+
+.editIcon,
+.listIcon {
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+  box-shadow: none !important;
+  z-index: 2;
+}
+
+.editIcon {
+  background-color: #89cff0;
+  color: #191970;
+  border: 1px solid #0047ab;
+}
+.editIcon:hover,
+.editIcon:active,
+.editIcon:focus {
+  background-color: #6495ed;
+  color: #191970;
+  outline: none !important;
+  outline-offset: none !important;
+}
+
+.listIcon {
+  background-color: #fdda0d;
+  color: black;
+  border: 1px solid #e49b0f;
+}
+.listIcon:hover,
+.listIcon:active,
+.listIcon:focus {
+  background-color: #e4d00a;
+  color: black;
+  border: 1px solid #e49b0f;
   outline: none !important;
   outline-offset: none !important;
 }

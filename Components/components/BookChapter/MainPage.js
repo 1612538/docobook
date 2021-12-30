@@ -31,7 +31,7 @@ const MainPage = () => {
               <Col xs="auto">
                 <h6>
                   {`Độ dài: ${new Intl.NumberFormat("en-US").format(
-                    chapter.content.length
+                    (chapter.content.match(/ /g) || []).length
                   )} từ - Cập nhật cuối: ${chapter.updated_at.slice(
                     0,
                     10

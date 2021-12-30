@@ -96,3 +96,12 @@ export const AddBook = async (data) => {
     console.log(err);
   }
 };
+
+export const UpdateBook = async (data) => {
+  try {
+    const res = await axios.put(url + "BookInfos/" + data.id, data);
+    return await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

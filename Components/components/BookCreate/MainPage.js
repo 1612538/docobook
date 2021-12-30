@@ -191,9 +191,9 @@ const MainPage = () => {
                     {listCategories.map((item, key) => (
                       <Col xs="auto" key={key} className={styles.category}>
                         <Row className="align-items-center">
-                          <Col xs="auto">{item ? item.name : undefined}</Col>
+                          <Col xs>{item ? item.name : undefined}</Col>
                           <Col
-                            xs
+                            xs="auto"
                             className={styles.x_button}
                             onClick={() => {
                               let array = listCategories;
@@ -203,6 +203,7 @@ const MainPage = () => {
                           >
                             <FontAwesomeIcon
                               icon={faTimesCircle}
+                              style={{ width: 16, height: 16 }}
                             ></FontAwesomeIcon>
                           </Col>
                         </Row>
@@ -216,7 +217,7 @@ const MainPage = () => {
                 <Form.Control
                   as="textarea"
                   placeholder="Nhập mô tả.."
-                  style={{ height: 100 }}
+                  style={{ height: 200 }}
                   onChange={(e) => {
                     setDescription(e.target.value);
                   }}
