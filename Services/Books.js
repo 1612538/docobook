@@ -99,7 +99,8 @@ export const AddBook = async (data) => {
 
 export const UpdateBook = async (data) => {
   try {
-    const res = await axios.put(url + "BookInfos/" + data.id, data);
+    const id = JSON.parse(data.get("data")).id;
+    const res = await axios.put(url + "BookInfos/" + id, data);
     return await res.data;
   } catch (err) {
     console.log(err);

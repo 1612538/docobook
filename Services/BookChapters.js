@@ -51,3 +51,21 @@ export const getByBook = async (id) => {
     console.log(err);
   }
 };
+
+export const AddChapter = async (data) => {
+  try {
+    const res = await axios.post(url + "BookChapters", data);
+    return await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const EditChapter = async (data) => {
+  try {
+    const res = await axios.put(url + "BookChapters/" + data.id, data);
+    return await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

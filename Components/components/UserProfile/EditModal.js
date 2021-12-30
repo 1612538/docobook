@@ -13,13 +13,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTimesCircle,
   faCheckCircle,
-  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { UpdateBook } from "../../../Services/Books";
 import { useContext, useEffect, useState } from "react";
 
 const EditModal = ({ book, show, onHide }) => {
-  const { countries, categories } = useContext(Context).state;
+  const { countries, categories, books } = useContext(Context).state;
+  const { handleBooks } = useContext(Context).handle;
   const [listCategories, setList] = useState([]);
   const [file, setFile] = useState(null);
   const [name, setName] = useState(null);
@@ -28,6 +28,10 @@ const EditModal = ({ book, show, onHide }) => {
   const [imgURL, setImgURL] = useState(
     "https://www.pinclipart.com/picdir/big/126-1266771_post-page-to-add-pictures-comments-add-post.png"
   );
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
+
   useEffect(() => {
     if (book) {
       setImgURL("http://localhost:1337" + book.image.url);
@@ -37,35 +41,40 @@ const EditModal = ({ book, show, onHide }) => {
       setDescription(book.description);
     }
   }, [book]);
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [fail, setFail] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (file && name && description && country) {
-      setLoading(true);
-      const data = {};
-      data.name = name;
-      data.description = description;
-      data.country = country;
-      data.categories = listCategories;
-      data.uploader = JSON.parse(localStorage.getItem("user"));
-      const formData = new FormData();
-      formData.append("data", JSON.stringify(data));
-      formData.append("files.image", file, file.name);
-      const res = await UpdateBook(formData);
-      setLoading(false);
-      if (res) {
-        setSuccess(true);
-        setTimeout(() => {
-          setSuccess(false);
-        }, 1500);
-      } else {
-        setFail(true);
-        setTimeout(() => {
-          setFail(false);
-        }, 1500);
-      }
+    setLoading(true);
+    const data = book;
+    data.name = name;
+    data.description = description;
+    data.country = country;
+    data.categories = listCategories;
+    data.uploader = JSON.parse(localStorage.getItem("user"));
+    console.log(data);
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(data));
+    if (file) formData.append("files.image", file, file.name);
+    const res = await UpdateBook(formData);
+    setLoading(false);
+    if (res) {
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        onHide();
+      }, 1500);
+    } else {
+      setFail(true);
+      setTimeout(() => {
+        setFail(false);
+        onHide();
+      }, 1500);
+    }
+    let tmp = books;
+    const index = books.findIndex((ele) => ele.id === data.id);
+    if (index >= 0) {
+      tmp[index] = data;
+      handleBooks([...tmp]);
     }
   };
   return (
@@ -244,7 +253,7 @@ const EditModal = ({ book, show, onHide }) => {
                     ) : undefined}
                     <Col xs="auto">
                       <Button className={styles.submitButton} type="submit">
-                        Đăng truyện
+                        Chỉnh sửa
                       </Button>
                     </Col>
                   </Row>
@@ -265,7 +274,7 @@ const EditModal = ({ book, show, onHide }) => {
                 icon={faCheckCircle}
                 style={{ width: 50, height: 50 }}
               ></FontAwesomeIcon>
-              Thêm truyện thành công!
+              Chỉnh sửa thành công!
             </Row>
           </Alert>
           <Alert
