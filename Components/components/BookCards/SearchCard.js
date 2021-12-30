@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styles from "../../../styles/searchcard.module.css";
 import { Container, Col, Row } from "react-bootstrap";
 import Link from "next/link";

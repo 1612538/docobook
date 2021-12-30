@@ -6,8 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTimesCircle,
   faCheckCircle,
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { AddBook } from "../../../Services/Books";
+import Link from "next/link";
 
 const MainPage = () => {
   const { countries, categories } = useContext(Context).state;
@@ -59,6 +61,26 @@ const MainPage = () => {
       <Container fluid className={styles.myContainer}>
         <Row>
           <Col xs={12} lg={3}>
+            <Row className="justify-content-start pb-4">
+              <Link href="/UserProfile">
+                <Col
+                  xs="auto"
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor: "#eee",
+                    borderRadius: "5px",
+                    color: "#444",
+                    border: "1px solid #ddd",
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faChevronLeft}
+                    style={{ width: 25, height: 20 }}
+                  ></FontAwesomeIcon>
+                  Quay lại
+                </Col>
+              </Link>
+            </Row>
             <Row className="justify-content-center align-items-center">
               <label htmlFor="myInputFile" className={styles.imageField}>
                 <img src={imgURL} className={styles.image} />
