@@ -31,18 +31,20 @@ const Tool = ({ chapter, chapters, setShow, show }) => {
   }, [chapter]);
 
   const handleClick = async () => {
-    setLoading(true);
-    if (isSaved) {
-      const res = await deleteOne(isSaved);
-    } else {
-      const data = {
-        bookchapter: chapter,
-        user: JSON.parse(localStorage.getItem("user")),
-      };
-      const res = await AddSaved(data);
-    }
-    setSaved(!isSaved);
-    setLoading(false);
+    if (localStorage.getItem("user")) {
+      setLoading(true);
+      if (isSaved) {
+        const res = await deleteOne(isSaved);
+      } else {
+        const data = {
+          bookchapter: chapter,
+          user: JSON.parse(localStorage.getItem("user")),
+        };
+        const res = await AddSaved(data);
+      }
+      setSaved(!isSaved);
+      setLoading(false);
+    } else alert("Bạn phải đăng nhập để sử dụng tính năng này");
   };
 
   return (

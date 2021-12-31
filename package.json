@@ -19,6 +19,7 @@
     "react": "17.0.2",
     "react-bootstrap": "^2.0.2",
     "react-dom": "17.0.2",
+    "react-simple-star-rating": "^4.0.5",
     "url-exist": "^3.0.0"
   },
   "devDependencies": {

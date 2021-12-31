@@ -70,3 +70,18 @@
   white-space: pre-line;
   width: 94%;
 }
+
+.rateButton {
+  background-color: #fdda0d;
+  color: black;
+  border: 1px solid #e49b0f;
+}
+.rateButton:hover,
+.rateButton:active,
+.rateButton:focus {
+  background-color: #e4d00a;
+  color: black;
+  border: 1px solid #e49b0f;
+  outline: none !important;
+  outline-offset: none !important;
+}

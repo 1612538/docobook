@@ -19,3 +19,35 @@
 .commentSection {
   min-height: 500px;
 }
+
+.submitButton {
+  padding: 0.8rem 1.5rem;
+  font-size: 16px;
+  font-family: "Varela Round", sans-serif;
+  text-transform: uppercase;
+  font-weight: 50;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  margin-right: 2rem;
+  background-color: #93329e;
+  color: white;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+.submitButton:hover,
+.submitButton:active,
+.submitButton:focus,
+.submitButtonActive {
+  background-color: #440a67;
+  color: #ffe3fe;
+  outline: none !important;
+  outline-offset: none !important;
+}
+.avatar {
+  width: 50px;
+  height: 50px;
+  background-color: #cccccc;
+  border-radius: 50%;
+}

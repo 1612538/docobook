@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import styles from "../../../styles/BookInfos/bookDetail.module.css";
 import Link from "next/link";
 import { getOne, deleteOne, AddFavorite } from "../../../Services/Favorite";
+import Rating from "./Rating";
 
 const BookDetail = () => {
   const [isFavor, setFavor] = useState(false);
@@ -132,16 +133,7 @@ const BookDetail = () => {
                       </Row>
                     </Col>
                     <Col xs={6} sm={3}>
-                      <Row className="justify-content-center">
-                        <Row
-                          className={styles.cssStar + " justify-content-center"}
-                        >
-                          <i className="bi bi-star"></i>
-                        </Row>
-                        <Row className="justify-content-center w-100">
-                          Đánh giá
-                        </Row>
-                      </Row>
+                      <Rating book={book}></Rating>
                     </Col>
                     <Col xs={6} sm={3}>
                       <Row className="justify-content-center">

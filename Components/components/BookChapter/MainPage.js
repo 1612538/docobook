@@ -32,10 +32,7 @@ const MainPage = () => {
                 <h6>
                   {`Độ dài: ${new Intl.NumberFormat("en-US").format(
                     (chapter.content.match(/ /g) || []).length
-                  )} từ - Cập nhật cuối: ${chapter.updated_at.slice(
-                    0,
-                    10
-                  )} - Bình luận: `}
+                  )} từ - Cập nhật cuối: ${chapter.updated_at.slice(0, 10)}`}
                 </h6>
               </Col>
             </Row>
@@ -51,7 +48,7 @@ const MainPage = () => {
             </Row>
             <Row className="justify-content-center">
               <Col lg={8} md={12}>
-                <Comment></Comment>
+                <Comment chapter={chapter}></Comment>
               </Col>
             </Row>
           </Container>
