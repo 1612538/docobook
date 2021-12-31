@@ -34,7 +34,17 @@ export const getOne = async (idbook, chapternumber) => {
         "&chapternumber=" +
         chapternumber
     );
-    if (res.data.length > 0) return await res.data[0];
+    if (res.data.length > 0) return res.data[0];
+    return null;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getOneByID = async (id) => {
+  try {
+    const res = await axios.get(url + "BookChapters?id=" + id);
+    if (res.data.length > 0) return res.data[0];
     return null;
   } catch (err) {
     console.log(err);

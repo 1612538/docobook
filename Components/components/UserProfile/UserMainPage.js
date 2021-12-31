@@ -2,10 +2,24 @@ import Title from "../Title/Title";
 import BookCard from "../BookCards/BookCard";
 import styles from "../../../styles/UserProfile/MainPage.module.css";
 import { Row, Col, Container } from "react-bootstrap";
-import { useContext, useEffect } from "react";
-import { Context } from "../../../Context/Context";
+import { useEffect, useState } from "react";
+import { getByUser as getBooks } from "../../../Services/Favorite";
+import { getByUser as getChapters } from "../../../Services/Saved";
+import ChapterCard from "../BookCards/ChapterCard";
 
-const UserMainPage = ({ books }) => {
+const UserMainPage = () => {
+  const [books, setBooks] = useState(null);
+  const [chapters, setChapters] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const id = JSON.parse(localStorage.getItem("user")).id;
+      const res1 = await getBooks(id);
+      setBooks(res1);
+      const res2 = await getChapters(id);
+      setChapters(res2);
+    };
+    if (localStorage.getItem("user")) fetchData();
+  }, []);
   return (
     <>
       <Row>
@@ -20,7 +34,7 @@ const UserMainPage = ({ books }) => {
               books.length > 0 ? (
                 books.map((item, key) => (
                   <Col xs={6} md={3} lg={2} key={key}>
-                    <BookCard Book={item}></BookCard>
+                    <BookCard Book={item.bookinfo}></BookCard>
                   </Col>
                 ))
               ) : (
@@ -50,11 +64,11 @@ const UserMainPage = ({ books }) => {
       <Row>
         <Col xs={12} md={12} lg={9}>
           <Row className="justify-content-center align-items-center">
-            {books ? (
-              books.length > 0 ? (
-                books.map((item, key) => (
+            {chapters ? (
+              chapters.length > 0 ? (
+                chapters.map((item, key) => (
                   <Col xs={6} md={3} lg={2} key={key}>
-                    <BookCard Book={item}></BookCard>
+                    <ChapterCard Chapter={item.bookchapter}></ChapterCard>
                   </Col>
                 ))
               ) : (

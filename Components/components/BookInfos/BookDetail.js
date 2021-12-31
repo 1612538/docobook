@@ -1,11 +1,43 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../../../Context/BookInfosContext";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "../../../styles/BookInfos/bookDetail.module.css";
 import Link from "next/link";
+import { getOne, deleteOne, AddFavorite } from "../../../Services/Favorite";
 
 const BookDetail = () => {
+  const [isFavor, setFavor] = useState(false);
   const { book } = useContext(Context).state;
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const checkData = async () => {
+      setLoading(true);
+      const id = JSON.parse(localStorage.getItem("user")).id;
+      const res = await getOne(id, book.id);
+      if (res) setFavor(res.id);
+      else setFavor(false);
+      setLoading(false);
+    };
+    if (localStorage.getItem("user") && book) {
+      checkData();
+    }
+  }, [book]);
+
+  const handleClick = async () => {
+    setLoading(true);
+    if (isFavor) {
+      const res = await deleteOne(isFavor);
+    } else {
+      const data = {
+        bookinfo: book,
+        user: JSON.parse(localStorage.getItem("user")),
+      };
+      const res = await AddFavorite(data);
+    }
+    setFavor(!isFavor);
+    setLoading(false);
+  };
+
   return (
     <Container fluid className={styles.myContainer}>
       {book ? (
@@ -73,16 +105,30 @@ const BookDetail = () => {
                   <Row>
                     <Col xs={6} sm={3}>
                       <Row className="justify-content-center">
-                        <Row
-                          className={
-                            styles.cssHeart + " justify-content-center"
-                          }
-                        >
-                          <i className="bi bi-heart"></i>
-                        </Row>
-                        <Row className="justify-content-center w-100">
-                          Yêu thích
-                        </Row>
+                        {loading ? (
+                          <div
+                            className="spinner-border mt-2"
+                            role="status"
+                          ></div>
+                        ) : (
+                          <>
+                            <Row
+                              className={
+                                styles.cssHeart + " justify-content-center"
+                              }
+                              onClick={handleClick}
+                            >
+                              {isFavor ? (
+                                <i className="bi bi-heart-fill"></i>
+                              ) : (
+                                <i className="bi bi-heart"></i>
+                              )}
+                            </Row>
+                            <Row className="justify-content-center w-100">
+                              Yêu thích
+                            </Row>
+                          </>
+                        )}
                       </Row>
                     </Col>
                     <Col xs={6} sm={3}>

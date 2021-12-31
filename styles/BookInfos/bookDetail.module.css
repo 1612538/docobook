@@ -32,6 +32,7 @@
   color: #fb8da0;
   width: max-content;
   font-size: 1.8rem;
+  cursor: pointer;
 }
 .cssHeart:hover {
   color: #fb4570;

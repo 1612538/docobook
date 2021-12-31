@@ -10,8 +10,41 @@ import {
   faList,
   faBookmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { AddSaved, getOne, deleteOne } from "../../../Services/Saved";
+import { useState, useEffect } from "react";
 
 const Tool = ({ chapter, chapters, setShow, show }) => {
+  const [isSaved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const checkData = async () => {
+      setLoading(true);
+      const id = JSON.parse(localStorage.getItem("user")).id;
+      const res = await getOne(id, chapter.id);
+      if (res) setSaved(res.id);
+      else setSaved(false);
+      setLoading(false);
+    };
+    if (localStorage.getItem("user") && chapter) {
+      checkData();
+    }
+  }, [chapter]);
+
+  const handleClick = async () => {
+    setLoading(true);
+    if (isSaved) {
+      const res = await deleteOne(isSaved);
+    } else {
+      const data = {
+        bookchapter: chapter,
+        user: JSON.parse(localStorage.getItem("user")),
+      };
+      const res = await AddSaved(data);
+    }
+    setSaved(!isSaved);
+    setLoading(false);
+  };
+
   return (
     <Container fluid className={styles.mainBox}>
       {chapters &&
@@ -75,9 +108,20 @@ const Tool = ({ chapter, chapters, setShow, show }) => {
         </div>
       </div>
       <div className={styles.iconFormat}>
-        <div className={styles.iconSize}>
-          <FontAwesomeIcon icon={faBookmark} />
-        </div>
+        {loading ? (
+          <div
+            className="spinner-border"
+            role="status"
+            style={{ marginLeft: "0.5rem" }}
+          ></div>
+        ) : (
+          <div className={styles.iconSize} onClick={handleClick}>
+            <FontAwesomeIcon
+              icon={faBookmark}
+              style={isSaved ? { color: "#228B22" } : {}}
+            />
+          </div>
+        )}
       </div>
       <div
         className={styles.iconFormat}
