@@ -13,7 +13,7 @@ import {
 import { AddSaved, getOne, deleteOne } from "../../../Services/Saved";
 import { useState, useEffect } from "react";
 
-const Tool = ({ chapter, chapters, setShow, show }) => {
+const Tool = ({ chapter, chapters, setShow, show, setModalShow }) => {
   const [isSaved, setSaved] = useState(false);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -35,14 +35,15 @@ const Tool = ({ chapter, chapters, setShow, show }) => {
       setLoading(true);
       if (isSaved) {
         const res = await deleteOne(isSaved);
+        setSaved(false);
       } else {
         const data = {
           bookchapter: chapter,
           user: JSON.parse(localStorage.getItem("user")),
         };
         const res = await AddSaved(data);
+        setSaved(res.id);
       }
-      setSaved(!isSaved);
       setLoading(false);
     } else alert("Bạn phải đăng nhập để sử dụng tính năng này");
   };
@@ -105,7 +106,7 @@ const Tool = ({ chapter, chapters, setShow, show }) => {
         </div>
       )}
       <div className={styles.iconFormat}>
-        <div className={styles.iconSize}>
+        <div className={styles.iconSize} onClick={() => setModalShow(true)}>
           <FontAwesomeIcon icon={faFont} />
         </div>
       </div>
