@@ -51,3 +51,14 @@
   background-color: #cccccc;
   border-radius: 50%;
 }
+
+.icon {
+  width: 50px;
+  height: 50px;
+  transition: 0.2s;
+}
+
+.icon:hover {
+  width: 60px;
+  height: 60px;
+}

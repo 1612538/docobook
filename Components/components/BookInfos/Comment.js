@@ -7,6 +7,7 @@ import { getByBook } from "../../../Services/Comment";
 const Comment = () => {
   const [comments, setComments] = useState(null);
   const { book } = useContext(Context).state;
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await getByBook(book.id);
