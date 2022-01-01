@@ -12,7 +12,7 @@ const Uploader = () => {
           <Row className={styles.Header}>Người đăng</Row>
           <Container fluid className={styles.userSection}>
             <Row className="justify-content-center p-3">
-              <Col className={styles.avatar}></Col>
+              <Col xs="auto" className={styles.avatar}></Col>
             </Row>
             <Row className="justify-content-center align-items-end pt-3">
               <Row className="justify-content-center">

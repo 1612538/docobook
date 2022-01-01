@@ -12,33 +12,8 @@ const Comment = ({ chapter }) => {
   const [loading, setLoading] = useState(false);
   const [emoji, setEmoji] = useState(0);
   const [hide, setHide] = useState(false);
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await getByChapter(chapter.id);
-      setComments(res);
-    };
-    fetchData();
-  }, []);
 
-  const handleSubmit = async (e) => {
-    setLoading(true);
-    e.preventDefault();
-    const data = {
-      content: comment,
-      bookchapter: chapter,
-      user: JSON.parse(localStorage.getItem("user")),
-      emoji,
-    };
-    const res = await AddComment(data);
-    if (res) {
-      let tmp = comments;
-      tmp.push(res);
-      setComments(comments);
-    }
-    setLoading(false);
-  };
-
-  const icons = [
+  const [icons, setIcons] = useState([
     {
       url: "https://icon-library.com/images/facebook-heart-icon-png/facebook-heart-icon-png-11.jpg",
       total: 0,
@@ -59,7 +34,45 @@ const Comment = ({ chapter }) => {
       url: "https://cdn.iconscout.com/icon/free/png-256/angry-face-14-894765.png",
       total: 0,
     },
-  ];
+  ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getByChapter(chapter.id);
+      setComments(res);
+      let tmp = icons;
+      for (let i in tmp) {
+        tmp[i].total = res.filter(
+          (ele) => ele.emoji === parseInt(i) + 1
+        ).length;
+      }
+      setIcons([...tmp]);
+    };
+    fetchData();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const data = {
+      content: comment,
+      bookchapter: chapter,
+      user: JSON.parse(localStorage.getItem("user")),
+      emoji,
+    };
+    const res = await AddComment(data);
+    if (res) {
+      let tmp = comments;
+      tmp.push(res);
+      setComments(comments);
+      let tmp2 = icons;
+      tmp2[res.emoji - 1].total++;
+      setIcons([...tmp2]);
+    }
+    setHide(false);
+    setComment("");
+    setEmoji(0);
+    setLoading(false);
+  };
 
   return (
     <>
@@ -191,7 +204,24 @@ const Comment = ({ chapter }) => {
                       }}
                     >
                       <Row className="justify-content-between">
-                        <Col xs="auto">{item.user.username}</Col>
+                        <Col xs="auto">
+                          <Row className="align-items-center">
+                            <Col xs="auto">{item.user.username}</Col>
+                            <Col xs="auto">
+                              <Col xs="auto" className="p-0">
+                                {item.emoji > 0 ? (
+                                  <img
+                                    src={icons[item.emoji - 1].url}
+                                    style={{
+                                      width: "1.6rem",
+                                      height: "1.6rem",
+                                    }}
+                                  ></img>
+                                ) : undefined}
+                              </Col>
+                            </Col>
+                          </Row>
+                        </Col>
                         <Col xs="auto">{item.created_at.slice(0, 10)}</Col>
                       </Row>
                       <Row className="justify-content-start">

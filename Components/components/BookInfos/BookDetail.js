@@ -22,7 +22,7 @@ const BookDetail = () => {
     if (localStorage.getItem("user") && book) {
       checkData();
     }
-  }, [book]);
+  }, [book ? book.id : book]);
 
   const handleClick = async () => {
     setLoading(true);

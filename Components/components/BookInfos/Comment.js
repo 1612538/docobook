@@ -41,7 +41,10 @@ const Comment = () => {
                     }}
                   >
                     <Row className="justify-content-between">
-                      <Col xs="auto">{item.user.username}</Col>
+                      <Col xs="auto">
+                        {item.user.username}{" "}
+                        <b>( Chương {item.bookchapter.chapternumber} )</b>
+                      </Col>
                       <Col xs="auto">{item.created_at.slice(0, 10)}</Col>
                     </Row>
                     <Row className="justify-content-start">
