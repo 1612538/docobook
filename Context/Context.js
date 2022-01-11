@@ -1,11 +1,15 @@
 import { createContext, useState } from "react";
 export const Context = createContext();
 export const Provider = ({ children }) => {
+  const [cats, setCats] = useState([]);
   const [categories, setCategories] = useState([]);
   const [countries, setCountries] = useState([]);
   const [books, setBooks] = useState(null);
   const [booksByViews, setBooksByViews] = useState(null);
   const [chapters, setChapters] = useState([]);
+  const handleCats = (cats) => {
+    setCats([...cats]);
+  };
   const handleCategories = (cats) => {
     setCategories([...cats]);
   };
@@ -23,6 +27,7 @@ export const Provider = ({ children }) => {
   };
   const ContextProps = {
     state: {
+      cats,
       categories,
       countries,
       books,
@@ -30,6 +35,7 @@ export const Provider = ({ children }) => {
       booksByViews,
     },
     handle: {
+      handleCats,
       handleCategories,
       handleCountries,
       handleBooks,
