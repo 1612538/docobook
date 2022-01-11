@@ -31,3 +31,12 @@ export const getOne = async (id) => {
     console.log(err);
   }
 };
+
+export const deleteOne = async (id) => {
+  try {
+    const res = await axios.delete(url + "subcategories/" + id);
+    return await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

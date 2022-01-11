@@ -1,0 +1,35 @@
+.mainContainer {
+  min-height: 5rem;
+  background: linear-gradient(180deg, #ffe3fe 0%, #b4aee8 100%);
+  z-index: 2;
+  position: relative;
+  overflow: hidden;
+}
+.myContainer {
+  margin: 1rem auto;
+  width: 95%;
+}
+.navItem {
+  padding: 0.8rem 1.5rem;
+  font-size: 16px;
+  font-family: "Varela Round", sans-serif;
+  text-transform: uppercase;
+  font-weight: 50;
+  border-radius: 5rem;
+  margin-top: 0.5rem;
+  margin-right: 2rem;
+  background-color: #93329e;
+  color: white;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+}
+.navItem:hover,
+.navItem:active,
+.navItem:focus,
+.navItemActive {
+  background-color: #440a67;
+  color: #ffe3fe;
+  outline: none !important;
+  outline-offset: none !important;
+}

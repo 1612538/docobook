@@ -116,3 +116,12 @@ export const Update = async (data) => {
     console.log(err);
   }
 };
+
+export const deleteOne = async (id) => {
+  try {
+    const res = await axios.delete(url + "BookInfos/" + id);
+    return await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
